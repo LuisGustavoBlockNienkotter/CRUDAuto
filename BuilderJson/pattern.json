@@ -1,0 +1,23 @@
+{
+    "project name": "name",
+    "objects":[
+        {
+            "name": "user",
+            "parameters":[
+                "id",
+                "name",
+                "user",
+                "password"
+            ]
+        },
+        {
+            "name": "car",
+            "parameters":[
+                "id",
+                "name",
+                "brand"
+            ]
+        }
+    ]
+}
+
