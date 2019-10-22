@@ -61,6 +61,7 @@ class Objects
     public function createJsonParams()
     {
         $data = '';
+        //var_dump($this->getParameters());
         foreach ($this->getParameters() as $key => $value) {
             if (sizeof($this->getParameters())-1==($key)) {
                 $data .= '"'.strval($value).'"';
