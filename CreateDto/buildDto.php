@@ -1,0 +1,107 @@
+<?php
+
+class BuildDto
+{
+    
+    private $json;
+
+    public function __construct($json) {
+        $this->json = $json;
+    }
+
+    /**
+     * Get the value of json
+     */ 
+    public function getJson()
+    {
+        return $this->json;
+    }
+
+    /**
+     * Set the value of json
+     *
+     * @return  self
+     */ 
+    public function setJson($json)
+    {
+        $this->json = $json;
+
+        return $this;
+    }
+
+    public function createStringParams($parameters)
+    {
+        $params = '';
+        foreach ($parameters as $key => $value) {
+            $params .= "\t".'private $'. $value. ';'."\n";
+        }
+        return $params;
+    }
+
+    public function createStringConstructor($parameters)
+    {
+        $cons = "\t".'public function __construct (';
+        foreach ($parameters as $key => $value) {
+            if (array_key_last($parameters) == $key) {
+                $cons .=  '$'. $value;
+            } else {
+                $cons .=  '$'. $value .', ';
+            }
+        }
+        $cons .= '){'."\n";
+        foreach ($parameters as $key => $value) {
+            $cons .=  "\t\t".'$this->'. $value . ' = $'. $value . ';'."\n";
+        }
+        $cons .= "\t".'}';
+        return $cons;
+    }
+
+    public function createStringGettersSetters($parameters)
+    {      
+        $getters = '';
+        $setters = '';
+        foreach ($parameters as $key => $value) {
+            $getters .= "\t".'public function get'. ucfirst($value).'(){'."\n".
+                        "\t\t".'return $this->'. $value. ';'."\n".
+                        "\t".'}'."\n";
+        }
+        foreach ($parameters as $key => $value) {
+            $setters .= "\t".'public function set'. ucfirst($value).'($'.$value.'){'."\n".
+                        "\t\t".'$this->'. $value. ' = $'. $value.';'."\n".
+                        "\t\t".'return $this;'."\n".
+                        "\t".'}'."\n";
+        }
+        return $getters.$setters;
+    }
+
+    public function createStringClass($name, $parameters)
+    {      
+        $str =  '<?php'.
+                "\n"
+                .'class '. ucfirst($name) . ' { '."\n".
+                "\n".
+                $this->createStringParams($parameters).
+                "\n".
+                $this->createStringConstructor($parameters).
+                "\n".
+                $this->createStringGettersSetters($parameters).
+                "\n".
+                '}'.
+                "\n".
+                '?>';
+        return $str; 
+    }
+
+    public function createDtoObjects()
+    {
+        foreach ($this->json['objects'] as $key => $value) {
+            $class = $this->createStringClass($value['name'], $value['parameters']);
+            $file = fopen($value['name'].'.php', 'w');
+            fwrite($file, $class);
+            fclose($file);
+        }   
+    }
+}
+
+
+?>

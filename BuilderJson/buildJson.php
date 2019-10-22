@@ -16,10 +16,17 @@ class buildJson
     
     public function getObjects(){
         $script = $this->getScript();
-        $tables_names = $this->getTablesNames($script);
-        $parameters = $this->getParameters($script);
+        $tables_names = $this->getTablesNames();
+        $parameters = $this->getParameters();
+        foreach ($parameters as $key => $value) {
+            if (sizeof($value->getParameters())==0) {
+                unset($parameters[$key]);
+            }
+        }
+        $parameters = array_values($parameters);
         $array_of_objects = array();
         foreach ($tables_names as $key => $value) {
+           
             $object = new Objects($value, $parameters[$key]->getParameters());
             array_push($array_of_objects, $object);
         }
@@ -100,7 +107,6 @@ class buildJson
         $fp = fopen('results.json', 'w');
         fwrite($fp, $data);
         fclose($fp);
-        return $json_string;
      }
     
 }
