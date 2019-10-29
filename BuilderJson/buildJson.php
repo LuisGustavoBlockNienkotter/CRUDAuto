@@ -1,6 +1,6 @@
 <?php
 include_once 'model/objects.php';
-class buildJson 
+class BuildJson 
 {
     
     private $sql_file;
