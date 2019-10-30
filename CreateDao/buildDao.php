@@ -32,8 +32,7 @@ class BuildDao
         fclose($file);
     }
 
-    public function createOrdenedParamsWithoutDots($object)
-    {
+    public function createOrdenedParamsWithoutDots($object){
         $params = '';
         foreach ($object['parameters'] as $key => $value) {
             if (array_key_last($object['parameters']) == $key) {
@@ -209,14 +208,30 @@ class BuildDao
         return $function;
     }
 
+    public function createInterface()
+    {
+        $str =  '<?php'."\n".
+                'interface IDAO{'."\n".
+                "\t".'public function post($object);'."\n".
+                "\t".'public function get($object);'."\n".
+                "\t".'public function put($object);'."\n".
+                "\t".'public function delete($object);'."\n".
+                '}'."\n".
+                '?>';
+        $file = fopen('IDAO.php', 'w');
+        fwrite($file, $str);
+        fclose($file);
+    }
+
     public function createDaoObjects()
     {
         $str = '';
         foreach ($this->json['objects'] as $key => $value) {
-            
+            $this->createInterface();
             $str =  '<?php'."\n".
-                    'require_once "Conexao.class.php";'."\n".
-                    'class '. ucfirst($value['name']). 'Dao extends Conexao{'."\n".
+                    'require_once "Conexao.php";'."\n".
+                    'require_once "IDAO.php";'."\n".
+                    'class '. ucfirst($value['name']). 'Dao extends Conexao implements IDAO{'."\n".
                     $this->createInsertFunctions($value).
                     $this->createGetAllFunctions($value).
                     $this->createUpdateFunction($value).
