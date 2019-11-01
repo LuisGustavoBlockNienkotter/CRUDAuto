@@ -5,7 +5,9 @@ class BuildBo
     private $json;
 
     public function __construct($json) {
-        $this->json = $json;
+        $json_file = file_get_contents($json);
+        $json_file = json_decode($json_file, true);
+        $this->json = $json_file;
     }
 
     public function createBoObjects()

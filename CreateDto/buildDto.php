@@ -6,7 +6,9 @@ class BuildDto
     private $json;
 
     public function __construct($json) {
-        $this->json = $json;
+        $json_file = file_get_contents($json);
+        $json_file = json_decode($json_file, true);
+        $this->json = $json_file;
     }
 
     /**
@@ -29,7 +31,7 @@ class BuildDto
         return $this;
     }
 
-    public function createStringParams($parameters)
+    private function createStringParams($parameters)
     {
         $params = '';
         foreach ($parameters as $key => $value) {
@@ -38,7 +40,7 @@ class BuildDto
         return $params;
     }
 
-    public function createStringConstructor($parameters)
+    private function createStringConstructor($parameters)
     {
         $cons = "\t".'public function __construct (';
         foreach ($parameters as $key => $value) {
@@ -56,7 +58,7 @@ class BuildDto
         return $cons;
     }
 
-    public function createStringGettersSetters($parameters)
+    private function createStringGettersSetters($parameters)
     {      
         $getters = '';
         $setters = '';
@@ -74,7 +76,7 @@ class BuildDto
         return $getters.$setters;
     }
 
-    public function createStringClass($name, $parameters)
+    private function createStringClass($name, $parameters)
     {      
         $str =  '<?php'.
                 "\n"

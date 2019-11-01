@@ -6,10 +6,12 @@ class BuildDao
     private $json;
 
     public function __construct($json) {
-        $this->json = $json;
+        $json_file = file_get_contents($json);
+        $json_file = json_decode($json_file, true);
+        $this->json = $json_file;
     }
 
-    public function createPdo(){
+    private function createPdo(){
         $pdo = '<?php'."\n".
         'class Conexao{'."\n".
             "\t".'private $pdo;'."\n".
@@ -32,7 +34,7 @@ class BuildDao
         fclose($file);
     }
 
-    public function createOrdenedParamsWithoutDots($object){
+    private function createOrdenedParamsWithoutDots($object){
         $params = '';
         foreach ($object['parameters'] as $key => $value) {
             if (array_key_last($object['parameters']) == $key) {
@@ -44,7 +46,7 @@ class BuildDao
         return $params;
     }
 
-    public function createOrdenedParamsWithDots($object)
+    private function createOrdenedParamsWithDots($object)
     {
         $params = '';
         foreach ($object['parameters'] as $key => $value) {
@@ -57,7 +59,7 @@ class BuildDao
         return $params;
     }
 
-    public function createBindParamForObjects($object, $space = false)
+    private function createBindParamForObjects($object, $space = false)
     {
         $bind_params = '';
         $params_dots = $this->createOrdenedParamsWithDots($object);
@@ -75,7 +77,7 @@ class BuildDao
         return $bind_params;
     }
 
-    public function createSetterValuesForBindParams($object, $space = false)
+    private function createSetterValuesForBindParams($object, $space = false)
     {
         $params = '';
         foreach ($object['parameters'] as $key => $value) {
@@ -89,7 +91,7 @@ class BuildDao
         return $params;
     }
 
-    public function createResultsFromQuerys($object)
+    private function createResultsFromQuerys($object)
     {
         $str = '';
         foreach ($object['parameters'] as $key => $value) {
@@ -102,7 +104,7 @@ class BuildDao
         return $str;
     }
 
-    public function createParamsForUpdate($object)
+    private function createParamsForUpdate($object)
     {
         $params = array();
         $str = '';
@@ -121,7 +123,7 @@ class BuildDao
         return $params;
     }
 
-    public function createBindParamsOnlyForId($object)
+    private function createBindParamsOnlyForId($object)
     {
         $str = '';
         foreach ($object['parameters'] as $key => $value) {
@@ -132,7 +134,7 @@ class BuildDao
         return $str;
     }
 
-    public function createSetterGetterOnlyForId($object)
+    private function createSetterGetterOnlyForId($object)
     {
         $str = '';
         foreach ($object['parameters'] as $key => $value) {
@@ -143,7 +145,7 @@ class BuildDao
         return $str;
     }
 
-    public function createInsertFunctions($object)
+    private function createInsertFunctions($object)
     {
         $function = "\t".'public function post($object){'."\n".
                     "\t"."\t".'$stmt = $this->getPdo()->prepare("INSERT INTO '.$object['name']."\n".
@@ -156,7 +158,7 @@ class BuildDao
         return $function;
     }
 
-    public function createGetAllFunctions($object)
+    private function createGetAllFunctions($object)
     {
         $function = "\t".'public function get(){'."\n".
                         "\t"."\t".'try{'."\n".
@@ -175,7 +177,7 @@ class BuildDao
         return $function;
     }
     
-    public function createUpdateFunction($object)
+    private function createUpdateFunction($object)
     {
         $function = "\t".'public function put($object){'."\n".
                     "\t"."\t".'try{'."\n".
@@ -191,7 +193,7 @@ class BuildDao
         return $function;
     }
 
-    public function createDeleteFunction($object)
+    private function createDeleteFunction($object)
     {
         $function = "\t".'public function delete($objeto){'."\n".
                     "\t"."\t".'try{'."\n".
@@ -208,7 +210,7 @@ class BuildDao
         return $function;
     }
 
-    public function createInterface()
+    private function createInterface()
     {
         $str =  '<?php'."\n".
                 'interface IDAO{'."\n".
@@ -226,8 +228,9 @@ class BuildDao
     public function createDaoObjects()
     {
         $str = '';
+        $this->createInterface();
+        $this->createPdo();
         foreach ($this->json['objects'] as $key => $value) {
-            $this->createInterface();
             $str =  '<?php'."\n".
                     'require_once "Conexao.php";'."\n".
                     'require_once "IDAO.php";'."\n".
