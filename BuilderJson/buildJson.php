@@ -11,6 +11,7 @@ class BuildJson
 
     public function getScript(){
         $script = file_get_contents($this->sql_file);
+        $script = strtolower($script);
         return $script;
      }
     
@@ -36,7 +37,7 @@ class BuildJson
     public function getTablesNames(){
         $script = $this->getScript();
         $array = array();
-        $script = explode('CREATE TABLE ', $script);
+        $script = explode('create table ', $script);
         unset($script[0]);
         $script = array_values($script);
         foreach ($script as $key => $value) {
@@ -73,13 +74,13 @@ class BuildJson
 
     public function getNameProject(){
         $script = $this->getScript();
-        if (strpos($script, 'CREATE DATABASE') !== FALSE) {
-            $script = explode('CREATE DATABASE', $script);
+        if (strpos($script, 'create database') !== FALSE) {
+            $script = explode('create database', $script);
             $script = trim($script[1]);
             $script = explode(';', $script);
             return $script[0];
-        }elseif (strpos($script, 'USE') !== FALSE) {
-            $script = explode('USE', $script);
+        }elseif (strpos($script, 'use') !== FALSE) {
+            $script = explode('use', $script);
             $script = trim($script[1]);
             $script = explode(';', $script);
             return $script[0];
