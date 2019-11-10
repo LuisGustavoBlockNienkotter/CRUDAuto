@@ -1,5 +1,10 @@
 <?php
 
+namespace app\CreateModel\CreateDao;
+
+require_once(__DIR__ . '/../../../vendor/autoload.php');
+use app\AuxBuilders\File\FileBuilder;
+
 class BuildDao
 {
     
@@ -29,9 +34,10 @@ class BuildDao
             "\t".'}'."\n".
         '}'."\n".
         '?>';
-        $file = fopen('Conexao.php', 'w');
-        fwrite($file, $pdo);
-        fclose($file);
+        FileBuilder::buildPHPClassFileOrDir(
+            __DIR__ . "/../../../project/conexao/Conexao", 
+            $pdo
+        );  
     }
 
     private function createOrdenedParamsWithoutDots($object){
@@ -220,9 +226,10 @@ class BuildDao
                 "\t".'public function delete($object);'."\n".
                 '}'."\n".
                 '?>';
-        $file = fopen('IDAO.php', 'w');
-        fwrite($file, $str);
-        fclose($file);
+        FileBuilder::buildPHPClassFileOrDir(
+            __DIR__ . "/../../../project/interfaces/IDAO", 
+            $str
+        );  
     }
 
     public function createDaoObjects()
@@ -241,9 +248,10 @@ class BuildDao
                     $this->createDeleteFunction($value).
                     '}'."\n".
                     '?>';
-            $file = fopen($value['name'].'Dao.php', 'w');
-            fwrite($file, $str);
-            fclose($file);
+            FileBuilder::buildPHPClassFileOrDir(
+                __DIR__ . "/../../../project/model/dao/" . $value['name'].'Dao', 
+                $str
+            );  
         }
     }
 }

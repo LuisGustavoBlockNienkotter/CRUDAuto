@@ -1,0 +1,2 @@
+{
+            "project name": "project01","objects":[{"name": "usuario","parameters":["login","senha","nome"]},{"name": "produto","parameters":["desc","preco","estoque","ncm"]}]}

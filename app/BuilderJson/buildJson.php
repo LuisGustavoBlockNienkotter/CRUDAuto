@@ -1,7 +1,10 @@
 <?php
-include_once 'model/objects.php';
-class BuildJson 
-{
+
+namespace app\BuilderJson;
+
+use app\BuilderJson\model\Objects;
+
+class BuildJson {
     
     private $sql_file;
 

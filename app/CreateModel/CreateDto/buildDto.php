@@ -1,5 +1,10 @@
 <?php
 
+namespace app\CreateModel\CreateDto;
+
+require_once(__DIR__ . '/../../../vendor/autoload.php');
+use app\AuxBuilders\File\FileBuilder;
+
 class BuildDto
 {
     
@@ -98,9 +103,10 @@ class BuildDto
     {
         foreach ($this->json['objects'] as $key => $value) {
             $class = $this->createStringClass($value['name'], $value['parameters']);
-            $file = fopen($value['name'].'.php', 'w');
-            fwrite($file, $class);
-            fclose($file);
+            FileBuilder::buildPHPClassFileOrDir(
+                __DIR__ . "/../../../project/model/dto/" . $value['name'], 
+                $class
+            );  
         }   
     }
 }

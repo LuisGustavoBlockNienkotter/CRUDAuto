@@ -1,4 +1,7 @@
 <?php
+
+namespace app\BuilderJson\model;
+
 class Objects
 {
     private $name;
