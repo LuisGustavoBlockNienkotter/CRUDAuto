@@ -29,7 +29,7 @@
 
     public function createRoutesFile(){
       $classes = $this->json['objects'];
-      $methods = ["index", "atualizar", "inserir", "deletar"];
+      $methods = ["index", "atualizar", "inserir", "deletar", "listar"];
       $routes = new StringBuilder();
       $routes->append("<?php");
       $routes->append("\n");
@@ -38,6 +38,14 @@
         $class = $classes[$i];
         for($j = 0; $j < count($methods); $j++){
           $routes->append("\$route[] = [\"/" . Helpers::strToLoweredCase($class["name"]));
+          if($methods[$j] != 'index'){
+            $routes->append("/");
+            $routes->append("{");
+            $routes->append(Helpers::strToLoweredCase($class["parameters"][0]));
+            $routes->append("}");
+            $routes->append("/");
+            $routes->append($methods[$j]);
+          }
           $routes->append("', ");
           $routes->append(Helpers::strToControllerName($class["name"]));
           $routes->append("@");
@@ -52,7 +60,7 @@
       $routes->append("\n");
       $routes->append("?>");
       FileBuilder::buildPHPClassFileOrDir(
-        __DIR__ . "/../../project/app/routes", 
+        "../../project/app/routes", 
         $routes
       );
     }

@@ -249,7 +249,7 @@ class BuildDao
                     '}'."\n".
                     '?>';
             FileBuilder::buildPHPClassFileOrDir(
-                __DIR__ . "/../../../project/app/model/dao/" . $value['name'].'Dao', 
+                "../../project/app/model/dao/" . $value['name'].'Dao', 
                 $str
             );  
         }

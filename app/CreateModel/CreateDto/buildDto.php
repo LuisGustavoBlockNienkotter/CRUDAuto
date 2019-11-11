@@ -104,7 +104,7 @@ class BuildDto
         foreach ($this->json['objects'] as $key => $value) {
             $class = $this->createStringClass($value['name'], $value['parameters']);
             FileBuilder::buildPHPClassFileOrDir(
-                __DIR__ . "/../../../project/app/model/dto/" . $value['name'], 
+                "../../project/app/model/dto/" . $value['name'], 
                 $class
             );  
         }   
