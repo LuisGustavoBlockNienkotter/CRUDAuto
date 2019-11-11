@@ -35,7 +35,7 @@ class BuildDao
         '}'."\n".
         '?>';
         FileBuilder::buildPHPClassFileOrDir(
-            __DIR__ . "/../../../project/app/conexao/Conexao", 
+            "/../../project/app/conexao/Conexao", 
             $pdo
         );  
     }
@@ -227,7 +227,7 @@ class BuildDao
                 '}'."\n".
                 '?>';
         FileBuilder::buildPHPClassFileOrDir(
-            __DIR__ . "/../../../project/app/interfaces/IDAO", 
+            "../../project/app/interfaces/IDAO", 
             $str
         );  
     }
