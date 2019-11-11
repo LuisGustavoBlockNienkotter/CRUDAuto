@@ -25,7 +25,7 @@ class UsuarioController extends AbsController{
 	public function deletar($id){
 		$usuarioDAO = new UsuarioDAO();
 		$usuarioBO = new UsuarioBO($usuarioDAO);
-		$usuario = (new Usuario())->setAlgumaCoisa();
+		$usuario = (new Usuario())->setId($request->post->id);
 		$usuarioBO->deletar($usuario);
 	}
 	public function atualizar($id, $request){

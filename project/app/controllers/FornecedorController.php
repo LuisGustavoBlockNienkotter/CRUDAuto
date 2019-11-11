@@ -24,7 +24,7 @@ class FornecedorController extends AbsController{
 	public function deletar($id){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
-		$fornecedor = (new Fornecedor())->setAlgumaCoisa();
+		$fornecedor = (new Fornecedor())->setId($request->post->id);
 		$fornecedorBO->deletar($fornecedor);
 	}
 	public function atualizar($id, $request){

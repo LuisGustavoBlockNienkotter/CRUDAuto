@@ -153,6 +153,11 @@
     }
 
     private function buildDeleteMethodBody($class){
+      $idParams = new StringBuilder();
+      $idParams->append('set');
+      $idParams->append(Helpers::strToUCFirst($class["parameters"][0]));
+      $idParams->append("(\$request->post->" . Helpers::strToLoweredCase($class["parameters"][0]) . ")"); 
+      $idParams->append(";");
       /* Constrói corpo da função */ 
       $body = new StringBuilder();
       $body->append('$');
@@ -172,7 +177,7 @@
       $body->append(" = (new ");
       $body->append(Helpers::strToUCFirst($class["name"]));
       $body->append("())->"); // primary key
-      $body->append("setAlgumaCoisa();");
+      $body->append($idParams);
       $body->append("\n");
       $body->append("$");
       $body->append(Helpers::strToBOName($class["name"]));

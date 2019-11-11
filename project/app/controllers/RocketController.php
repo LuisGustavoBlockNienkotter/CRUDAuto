@@ -26,7 +26,7 @@ class RocketController extends AbsController{
 	public function deletar($id){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);
-		$rocket = (new Rocket())->setAlgumaCoisa();
+		$rocket = (new Rocket())->setId($request->post->id);
 		$rocketBO->deletar($rocket);
 	}
 	public function atualizar($id, $request){

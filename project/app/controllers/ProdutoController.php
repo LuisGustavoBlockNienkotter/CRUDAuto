@@ -25,7 +25,7 @@ class ProdutoController extends AbsController{
 	public function deletar($id){
 		$produtoDAO = new ProdutoDAO();
 		$produtoBO = new ProdutoBO($produtoDAO);
-		$produto = (new Produto())->setAlgumaCoisa();
+		$produto = (new Produto())->setId($request->post->id);
 		$produtoBO->deletar($produto);
 	}
 	public function atualizar($id, $request){
