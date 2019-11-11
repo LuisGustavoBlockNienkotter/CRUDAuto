@@ -35,7 +35,7 @@ class BuildDao
         '}'."\n".
         '?>';
         FileBuilder::buildPHPClassFileOrDir(
-            __DIR__ . "/../../../project/conexao/Conexao", 
+            __DIR__ . "/../../../project/app/conexao/Conexao", 
             $pdo
         );  
     }
@@ -227,7 +227,7 @@ class BuildDao
                 '}'."\n".
                 '?>';
         FileBuilder::buildPHPClassFileOrDir(
-            __DIR__ . "/../../../project/interfaces/IDAO", 
+            __DIR__ . "/../../../project/app/interfaces/IDAO", 
             $str
         );  
     }
@@ -249,7 +249,7 @@ class BuildDao
                     '}'."\n".
                     '?>';
             FileBuilder::buildPHPClassFileOrDir(
-                __DIR__ . "/../../../project/model/dao/" . $value['name'].'Dao', 
+                __DIR__ . "/../../../project/app/model/dao/" . $value['name'].'Dao', 
                 $str
             );  
         }

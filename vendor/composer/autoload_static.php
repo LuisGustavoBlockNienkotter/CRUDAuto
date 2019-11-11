@@ -39,6 +39,7 @@ class ComposerStaticInit31ef15358a998d6480f1f6cde07ada20
         'app\\BuilderJson\\BuildJson' => __DIR__ . '/../..' . '/app/BuilderJson/buildJson.php',
         'app\\BuilderJson\\model\\Objects' => __DIR__ . '/../..' . '/app/BuilderJson/model/objects.php',
         'app\\CreateControllers\\ControllerBuilder' => __DIR__ . '/../..' . '/app/CreateControllers/ControllerBuilder.php',
+        'app\\CreateControllers\\CreateCore\\CoreBuilder' => __DIR__ . '/../..' . '/app/CreateControllers/CreateCore/CoreBuilder.php',
         'app\\CreateModel\\CreateBo\\BuildBo' => __DIR__ . '/../..' . '/app/CreateModel/CreateBo/buildBo.php',
         'app\\CreateModel\\CreateDao\\BuildDao' => __DIR__ . '/../..' . '/app/CreateModel/CreateDao/buildDao.php',
         'app\\CreateModel\\CreateDto\\BuildDto' => __DIR__ . '/../..' . '/app/CreateModel/CreateDto/buildDto.php',

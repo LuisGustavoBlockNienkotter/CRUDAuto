@@ -1,6 +1,11 @@
 <?php
 
   namespace app\AuxBuilders\Script;
+
+  require_once(__DIR__ . '/../../../vendor/autoload.php');
+
+  use app\AuxBuilders\Strings\StringBuilder;
+  use helpers\Helpers;
   
   class Printer{
 
@@ -23,13 +28,28 @@
                  "\n" . 
                  implode("\n", $methods);
 
-      return "<?php\n"  
-      .  "\tclass " 
-      .  $class->getName()  
-      .  "{\n" 
-      .    $members 
-      .  "\n\t}\n" 
-      .  "?>";
+      $uses = $class->getUses();
+      $classScript = new StringBuilder();   
+      $classScript->append("<?php");
+      $classScript->append("\n");   
+      $classScript->append("\n"); 
+      $class->getNamespace() ? $classScript->append($this->printNamespace($class->getNamespace())) : $classScript->append("");
+      $classScript->append("\n"); 
+      $classScript->append($this->printUses($uses));
+      $classScript->append("\n");   
+      $classScript->append("\n");         
+      $classScript->append("class ");
+      $classScript->append($class->getName());
+      $class->getExtends() ? $classScript->append(" extends " . $class->getExtends()) : $classScript->append("");
+      $classScript->append("{");
+      $classScript->append("\n");    
+      $classScript->append($members);   
+      $classScript->append("\n");  
+      $classScript->append("}");
+      $classScript->append("\n");      
+      $classScript->append("?>");    
+
+      return Helpers::indentTest($classScript);
     }
 
     public function printFunction(Method $method): string{
@@ -50,7 +70,19 @@
       }
       return "(" . implode(', ', $params) . ")";
     }
-  
+
+    protected function printUses($uses) : string{
+      $traits = [];
+      foreach ($uses as $use) {
+        $traits[] = "use " . $use . ";";
+      }
+      return implode("\n", $traits);
+    }
+
+    protected function printNamespace($namespace) : string{
+      return "namespace " . $namespace . ";";
+    }
+
   }
 
 ?>

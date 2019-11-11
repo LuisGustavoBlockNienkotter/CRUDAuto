@@ -10,6 +10,8 @@
   use app\AuxBuilders\Script\Property;
   use app\AuxBuilders\Script\Printer;
   use app\AuxBuilders\Strings\StringBuilder;
+  use app\CreateControllers\CreateCore\CoreBuilder;
+
   use helpers\Helpers;
 
   class ControllerBuilder{
@@ -28,7 +30,14 @@
       for ($i = 0; $i < count($classes); $i++){
         $class = (new ScriptClass())
                 ->setName(Helpers::strToControllerName($classes[$i]["name"]))
-                
+                ->setExtends('AbsController')
+
+                ->setNamespace('app\controllers')
+                ->addUse('core\AbsController')
+                ->addUse('app\model\dao\\' . Helpers::strToDAOName($classes[$i]["name"], true))
+                ->addUse('app\model\bo\\'. Helpers::strToBOName($classes[$i]["name"], true))
+                ->addUse('app\model\dto\\'. Helpers::strToUCFirst(Helpers::strToLoweredCase($classes[$i]["name"])))
+
                 ->addMember((new Method())
                   ->setName('index')
                   ->setVisibility('public')
@@ -37,6 +46,8 @@
                 ->addMember((new Method())
                   ->setName('inserir')
                   ->setVisibility('public') 
+                  ->addParameter((new Parameter())
+                    ->setName('request'))
                   ->setBody($this->buildInsertMethodBody($classes[$i])))
 
                 ->addMember((new Method())  
@@ -51,14 +62,17 @@
                   ->setVisibility('public')
                     ->addParameter((new Parameter())
                     ->setName('id'))
+                    ->addParameter((new Parameter())
+                    ->setName('request'))
                   ->setBody($this->buildUpdateMethodBody($classes[$i])));
           
         $classScript = $this->printer->printClass($class);
         FileBuilder::buildPHPClassFileOrDir(
-          __DIR__ . "/../../project/controllers/" . Helpers::strToControllerName($classes[$i]["name"]), 
-          $this->indentTest($classScript)
+          __DIR__ . "/../../project/app/controllers/" . Helpers::strToControllerName($classes[$i]["name"]), 
+          $classScript
         );
       }
+      // (new CoreBuilder())->createCoreClasses();
     }
 
     private function buildIndexMethodBody($class){
@@ -91,7 +105,7 @@
       for ($i = 0; $i < count($class["parameters"]); $i++){
         $params->append('set');
         $params->append(Helpers::strToUCFirst($class["parameters"][$i]));
-        $params->append("()"); 
+        $params->append("(\$request->post->" . Helpers::strToLoweredCase($class["parameters"][$i]) . ")"); 
 
         if(count($class["parameters"])-1 === $i){
           $params->append(";");
@@ -165,12 +179,13 @@
     private function buildUpdateMethodBody($class){
       $str = '';
       $params = new StringBuilder();
+      $idParams = new StringBuilder();
 
       /* Constrói funções set */
       for ($i = 0; $i < count($class["parameters"]); $i++){
         $params->append('set');
         $params->append(Helpers::strToUCFirst($class["parameters"][$i]));
-        $params->append("()"); 
+        $params->append("(\$request->post->" . Helpers::strToLoweredCase($class["parameters"][$i]) . ")"); 
 
         if(count($class["parameters"])-1 === $i){
           $params->append(";");
@@ -180,6 +195,10 @@
         }
       }
 
+      $idParams->append('set');
+      $idParams->append(Helpers::strToUCFirst($class["parameters"][0]));
+      $idParams->append("(\$request->post->" . Helpers::strToLoweredCase($class["parameters"][0]) . ")"); 
+      $idParams->append(";");
       /* Constrói corpo da função */ 
       $body = new StringBuilder();
       $body->append('$');
@@ -199,46 +218,28 @@
       $body->append(" = (new ");
       $body->append(Helpers::strToUCFirst($class["name"]));
       $body->append("())->");
+      $body->append($idParams);
+      $body->append("\n");
+      $body->append("\$obj = ");
+      $body->append("$");
+      $body->append(Helpers::strToBOName($class["name"]));
+      $body->append("->procurarPorId($");
+      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append(");");
+      $body->append("\n");
+      $body->append("\$obj");
+      $body->append(" = (new ");
+      $body->append(Helpers::strToUCFirst($class["name"]));
+      $body->append("())->");
       $body->append($params);
       $body->append("\n");
       $body->append("$");
       $body->append(Helpers::strToBOName($class["name"]));
-      $body->append("->inserir($");
+      $body->append("->atualizar($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
 
       return $body;
-    }
-    
-    public function indentTest($script){
-      $withoutTabs = preg_replace('/\t/', '', $script);
-      $array = preg_split("/\r\n|\n|\r/", $withoutTabs);
-      return $this->indent($array, 0);
-    }
-
-    public function indent($arr, $indent){
-      for ($i = 0; $i < count($arr); $i++){
-        $chars = str_split($arr[$i]);
-        if($chars[count($chars)-1] == '{'){
-          for ($j = 0; $j < $indent; $j++){
-            $arr[$i] = "\t" . $arr[$i];
-          }
-          $this->indent($arr[$i+1], $indent++);
-        }else{
-          if($chars[count($chars)-1] == '}'){
-            $indent--;
-            for ($j = 0; $j < $indent; $j++){
-              $arr[$i] = "\t" . $arr[$i];
-            }
-            $this->indent($arr[$i+1], $indent);
-          }else{
-            for ($j = 0; $j < $indent; $j++){
-              $arr[$i] = "\t" . $arr[$i];
-            }
-          }
-        }
-      }
-      return implode("\n", $arr);
     }
 
   }

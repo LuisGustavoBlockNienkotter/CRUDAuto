@@ -16,6 +16,7 @@ return array(
     'app\\BuilderJson\\BuildJson' => $baseDir . '/app/BuilderJson/buildJson.php',
     'app\\BuilderJson\\model\\Objects' => $baseDir . '/app/BuilderJson/model/objects.php',
     'app\\CreateControllers\\ControllerBuilder' => $baseDir . '/app/CreateControllers/ControllerBuilder.php',
+    'app\\CreateControllers\\CreateCore\\CoreBuilder' => $baseDir . '/app/CreateControllers/CreateCore/CoreBuilder.php',
     'app\\CreateModel\\CreateBo\\BuildBo' => $baseDir . '/app/CreateModel/CreateBo/buildBo.php',
     'app\\CreateModel\\CreateDao\\BuildDao' => $baseDir . '/app/CreateModel/CreateDao/buildDao.php',
     'app\\CreateModel\\CreateDto\\BuildDto' => $baseDir . '/app/CreateModel/CreateDto/buildDto.php',

@@ -1,17 +1,25 @@
 create database project01;
 
 create table usuario (
+  id int not null,
+  nome varchar(50) not null,
   login varchar(50) not null,
-  senha varchar(25) not null,
-  nome varchar(25) not null,
-  primary key(var1)
+  senha varchar(50) not null,
+  primary key(id)
 );
 
 create table produto (
+  id int not null,
   desc varchar(50) not null,
-  preco varchar(50) not null,
-  estoque varchar(50) not null,
-  ncm int not null,
-  primary key(var1)
+  ncm varchar(50) not null,
+  estoque int not null,
+  primary key(id)
+);
+
+create table fornecedor (
+  id int not null,
+  nome varchar(50) not null,
+  cpf varchar(50) not null,
+  primary key(id)
 );
 
