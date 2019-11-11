@@ -37,7 +37,7 @@
       for($i = 0; $i < count($classes); $i++){
         $class = $classes[$i];
         for($j = 0; $j < count($methods); $j++){
-          $routes->append("\$route[] = [\"/" . Helpers::strToLoweredCase($class["name"]));
+          $routes->append("\$routes[] = [\"/" . Helpers::strToLoweredCase($class["name"]));
           if($methods[$j] != 'index'){
             $routes->append("/");
             $routes->append("{");
