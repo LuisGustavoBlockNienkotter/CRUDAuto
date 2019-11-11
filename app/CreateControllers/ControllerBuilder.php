@@ -64,11 +64,18 @@
                     ->setName('id'))
                     ->addParameter((new Parameter())
                     ->setName('request'))
-                  ->setBody($this->buildUpdateMethodBody($classes[$i])));
+                  ->setBody($this->buildUpdateMethodBody($classes[$i])))
+
+                ->addMember((new Method())
+                  ->setName('procurarPorId')
+                  ->setVisibility('public')
+                  ->addParameter((new Parameter())
+                    ->setName('id'))
+                  ->setBody($this->buildFindByIdMethodBody($classes[$i])));
           
         $classScript = $this->printer->printClass($class);
         FileBuilder::buildPHPClassFileOrDir(
-          __DIR__ . "/../../project/app/controllers/" . Helpers::strToControllerName($classes[$i]["name"]), 
+          "../../project/app/controllers/" . Helpers::strToControllerName($classes[$i]["name"]), 
           $classScript
         );
       }
@@ -239,6 +246,43 @@
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
 
+      return $body;
+    }
+
+    private function buildFindByIdMethodBody($class){
+      $idParams = new StringBuilder();
+
+      $idParams->append('set');
+      $idParams->append(Helpers::strToUCFirst($class["parameters"][0]));
+      $idParams->append("(\$request->post->" . Helpers::strToLoweredCase($class["parameters"][0]) . ")"); 
+      $idParams->append(";");
+
+      $body = new StringBuilder();
+      $body->append('$');
+      $body->append(Helpers::strToDAOName($class["name"]));
+      $body->append(" = new ");
+      $body->append(Helpers::strToDAOName($class["name"], true));
+      $body->append("();");
+      $body->append("\n");
+      $body->append('$');
+      $body->append(Helpers::strToBOName($class["name"]));
+      $body->append(" = new ");
+      $body->append(Helpers::strToBOName($class["name"], true));
+      $body->append("($" . Helpers::strToDAOName($class["name"]) . ");");
+      $body->append("\n");
+      $body->append("$");
+      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append(" = (new ");
+      $body->append(Helpers::strToUCFirst($class["name"]));
+      $body->append("())->");
+      $body->append($idParams);
+      $body->append("\n");
+      $body->append("\$obj = ");
+      $body->append("$");
+      $body->append(Helpers::strToBOName($class["name"]));
+      $body->append("->procurarPorId($");
+      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append(");");
       return $body;
     }
 

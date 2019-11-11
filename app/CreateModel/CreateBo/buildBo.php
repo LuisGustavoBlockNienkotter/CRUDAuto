@@ -42,7 +42,7 @@ class BuildBo
                     '}'."\n".
                     '?>';
         FileBuilder::buildPHPClassFileOrDir(
-            __DIR__ . "/../../../project/app/model/bo/boController", 
+            "/../../project/app/model/bo/boController/", 
             $str
         );   
     }

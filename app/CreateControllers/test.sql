@@ -23,3 +23,12 @@ create table fornecedor (
   primary key(id)
 );
 
+create table rocket (
+  id int not null fasda auto_increment,
+  codigo int not null,
+  altura float not null,
+  largura float not null,
+  peso float not null,
+  primary key (id)
+)
+
