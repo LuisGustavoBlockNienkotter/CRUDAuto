@@ -1,4 +1,5 @@
 <?php
+namespace app\interfaces; 
 interface IDAO{
 	public function post($object);
 	public function get($object);

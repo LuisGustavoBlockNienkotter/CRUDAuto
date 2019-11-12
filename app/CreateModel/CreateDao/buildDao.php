@@ -3,8 +3,16 @@
 namespace app\CreateModel\CreateDao;
 
 require_once(__DIR__ . '/../../../vendor/autoload.php');
-use app\AuxBuilders\File\FileBuilder;
 
+use app\AuxBuilders\File\FileBuilder;
+use app\AuxBuilders\Script\ScriptClass;
+use app\AuxBuilders\Script\Method;
+use app\AuxBuilders\Script\Parameter;
+use app\AuxBuilders\Script\Property;
+use app\AuxBuilders\Script\Printer;
+use app\AuxBuilders\Strings\StringBuilder;
+
+use helpers\Helpers;
 class BuildDao
 {
     
@@ -18,6 +26,8 @@ class BuildDao
 
     private function createPdo(){
         $pdo = '<?php'."\n".
+        "namespace app\conexao;" . "\n" . 
+        "use PDO; " . "\n" .
         'class Conexao{'."\n".
             "\t".'private $pdo;'."\n".
             "\t".'public function __construct(){'."\n".
@@ -166,7 +176,7 @@ class BuildDao
 
     private function createGetAllFunctions($object)
     {
-        $function = "\t".'public function get(){'."\n".
+        $function = "\t".'public function get($object){'."\n".
                         "\t"."\t".'try{'."\n".
                             "\t"."\t"."\t".'$query = $this->getPdo()->query("SELECT * FROM '.$object['name'].';");'."\n".
                             "\t"."\t"."\t".'$array = array();'."\n".
@@ -219,6 +229,7 @@ class BuildDao
     private function createInterface()
     {
         $str =  '<?php'."\n".
+                'namespace app\interfaces; ' . "\n" .
                 'interface IDAO{'."\n".
                 "\t".'public function post($object);'."\n".
                 "\t".'public function get($object);'."\n".
@@ -237,10 +248,37 @@ class BuildDao
         $str = '';
         $this->createInterface();
         $this->createPdo();
+
+
         foreach ($this->json['objects'] as $key => $value) {
-            $str =  '<?php'."\n".
-                    'require_once "Conexao.php";'."\n".
-                    'require_once "IDAO.php";'."\n".
+            $namespaces = new StringBuilder();
+            $namespaces->append("namespace ");
+            $namespaces->append("app\model\dao; ");
+            $namespaces->append("\n");
+    
+            $namespaces->append("use ");
+            $namespaces->append("app\model\dto\\");        
+            $namespaces->append(Helpers::strToUCFirst($value['name']));
+            $namespaces->append(";");
+            $namespaces->append("\n");
+
+            $namespaces->append("use ");
+            $namespaces->append("app\conexao\Conexao");  
+            $namespaces->append(";");      
+            $namespaces->append("\n");
+
+            $namespaces->append("use ");
+            $namespaces->append("app\interfaces\IDAO");  
+            $namespaces->append(";");      
+            $namespaces->append("\n");
+
+            $namespaces->append("use ");
+            $namespaces->append("PDO;");  
+            $namespaces->append("\n");
+            $namespaces->append("\n");
+
+
+            $str =  '<?php'."\n". $namespaces .
                     'class '. ucfirst($value['name']). 'Dao extends Conexao implements IDAO{'."\n".
                     $this->createInsertFunctions($value).
                     $this->createGetAllFunctions($value).
@@ -248,10 +286,12 @@ class BuildDao
                     $this->createDeleteFunction($value).
                     '}'."\n".
                     '?>';
+
             FileBuilder::buildPHPClassFileOrDir(
                 "../../project/app/model/dao/" . $value['name'].'Dao', 
                 $str
-            );  
+            ); 
+
         }
     }
 }

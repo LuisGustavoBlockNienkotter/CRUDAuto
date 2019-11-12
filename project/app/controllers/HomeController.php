@@ -6,7 +6,7 @@ use core\AbsController;
 class HomeController extends AbsController{
 	
 	public function index(){
-		$this->requisitarView('index');
+		$this->requestView('index', 'baseHtml');
 	}
 }
 ?>

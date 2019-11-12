@@ -1,4 +1,6 @@
 <?php
+namespace app\conexao;
+use PDO; 
 class Conexao{
 	private $pdo;
 	public function __construct(){

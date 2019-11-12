@@ -1,6 +1,10 @@
 <?php
-require_once "Conexao.php";
-require_once "IDAO.php";
+namespace app\model\dao; 
+use app\model\dto\Produto;
+use app\conexao\Conexao;
+use app\interfaces\IDAO;
+use PDO;
+
 class ProdutoDao extends Conexao implements IDAO{
 	public function post($object){
 		$stmt = $this->getPdo()->prepare("INSERT INTO produto
@@ -18,7 +22,7 @@ class ProdutoDao extends Conexao implements IDAO{
 
 		$stmt->execute();
 	}
-	public function get(){
+	public function get($object){
 		try{
 			$query = $this->getPdo()->query("SELECT * FROM produto;");
 			$array = array();
