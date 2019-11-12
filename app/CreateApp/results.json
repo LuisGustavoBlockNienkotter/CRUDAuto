@@ -1,2 +1,2 @@
 {
-            "project name": "project01","objects":[{"name": "usuario","parameters":["id","nome","login","senha"]},{"name": "produto","parameters":["id","desc","ncm","estoque"]},{"name": "fornecedor","parameters":["id","nome","cpf"]},{"name": "rocket","parameters":["id","codigo","altura","largura","peso"]}]}
+            "project name": "project01","objects":[{"name": "usuario","parameters":["id","nome","login","senha"]},{"name": "produto","parameters":["id","descricao","ncm","estoque"]},{"name": "fornecedor","parameters":["id","nome","cpf"]},{"name": "rocket","parameters":["id","codigo","altura","largura","peso"]}]}
