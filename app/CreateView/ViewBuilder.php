@@ -7,6 +7,11 @@
 
   class ViewBuilder{
 
+    public function createViews(){
+      $this->createHomeIndexPage();
+      $this->createProdutoIndexPage();
+    }
+
     public function createHomeIndexPage(){
       $indexHtml = '<html>
       <head>
@@ -17,6 +22,21 @@
       </html>';
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/view/index", 
+        $indexHtml,
+        "phtml"
+      );
+    }    
+    
+    public function createProdutoIndexPage(){
+      $indexHtml = '<html>
+      <head>
+      </head>
+      <body>
+        $this->view->produto
+      </body>
+      </html>';
+      FileBuilder::buildPHPClassFileOrDir(
+        "../../project/app/view/produto/index", 
         $indexHtml,
         "phtml"
       );

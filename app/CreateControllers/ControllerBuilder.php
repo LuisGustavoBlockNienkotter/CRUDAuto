@@ -112,9 +112,19 @@
       $body->append(Helpers::strToBOName($class["name"], true));
       $body->append("($" . Helpers::strToDAOName($class["name"]) . ");");
       $body->append("\n");
+      $body->append('$obj = ');
       $body->append('$');
       $body->append(Helpers::strToBOName($class["name"]));
       $body->append("->listar();");
+      $body->append("\n");
+      $body->append('$this->view->');
+      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append(" = \$obj;");
+      $body->append("\n");
+      $body->append('$this->requisitarView(\'');
+      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append("/");
+      $body->append("index');");
 
       return $body;
     }
@@ -163,7 +173,11 @@
       $body->append("->inserir($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
-
+      $body->append("\n");
+      $body->append('$this->requisitarView(\'');
+      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append("/");
+      $body->append("cadastrar');");
       return $body;
     }
 
@@ -199,6 +213,11 @@
       $body->append("->deletar($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
+      $body->append("\n");
+      $body->append('$this->requisitarView(\'');
+      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append("/");
+      $body->append("deletar');");
 
       return $body;
     }
@@ -265,6 +284,12 @@
       $body->append("->atualizar($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
+      $body->append("\n");
+      $body->append('$this->requisitarView(\'');
+      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append("/");
+      $body->append("atualizar');");
+
 
       return $body;
     }
@@ -303,6 +328,18 @@
       $body->append("->procurarPorId($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
+
+      $body->append("\n");
+      $body->append('$this->view->');
+      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append(" = \$obj;");
+      
+      $body->append("\n");
+      $body->append('$this->requisitarView(\'');
+      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append("/");
+      $body->append("visualizar');");
+
       return $body;
     }
 

@@ -18,7 +18,7 @@
   (new BuildDao('results.json'))->createDaoObjects();
   (new BuildDto('results.json'))->createDtoObjects();
   (new RouteBuilder('results.json'))->createRoutesFile();
-  (new ViewBuilder())->createHomeIndexPage();
+  (new ViewBuilder())->createViews();
   exec("cd ../../project/ && composer update");
   exec("cd ../../project/ && composer dump-autoload -o");
 ?>
