@@ -113,7 +113,7 @@
 
       $script = (new Printer())->printClass($class);
       FileBuilder::buildPHPClassFileOrDir(
-        __DIR__ . "/../../../project/core/" . $class->getName(), 
+        "../../../project/core/" . $class->getName(), 
         Helpers::indentTest($script)
       );
     }

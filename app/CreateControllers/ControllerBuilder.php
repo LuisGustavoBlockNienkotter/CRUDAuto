@@ -26,6 +26,21 @@
     }
 
     public function createControllerClass(){
+
+      $homeClass = (new ScriptClass())
+                  ->setName('HomeController')
+                  ->setExtends('AbsController')
+                  ->setNamespace('app\controllers')
+                  ->addUse('core\AbsController')
+                  ->addMember((new Method())
+                    ->setName('index')
+                    ->setVisibility('public')
+                    ->setBody('$this->requestView(\'index\', \'baseHtml\');'));
+      $homeScript = $this->printer->printClass($homeClass);
+      FileBuilder::buildPHPClassFileOrDir(
+        "../../project/app/controllers/HomeController", 
+        $homeScript
+      );
       $classes = $this->json['objects'];
       for ($i = 0; $i < count($classes); $i++){
         $class = (new ScriptClass())
