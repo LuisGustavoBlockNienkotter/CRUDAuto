@@ -9,6 +9,7 @@
   use app\CreateModel\CreateDao\BuildDao;
   use app\CreateModel\CreateDto\BuildDto;
   use app\CreateRoutes\RouteBuilder;
+  use app\CreateView\ViewBuilder;
 
   (new BuildJson('../CreateControllers/test.sql'))->getJson();
   (new ControllerBuilder('results.json'))->createControllerClass();
@@ -17,5 +18,7 @@
   (new BuildDao('results.json'))->createDaoObjects();
   (new BuildDto('results.json'))->createDtoObjects();
   (new RouteBuilder('results.json'))->createRoutesFile();
-
+  (new ViewBuilder())->createHomeIndexPage();
+  exec("cd ../../project/ && composer update");
+  exec("cd ../../project/ && composer dump-autoload -o");
 ?>
