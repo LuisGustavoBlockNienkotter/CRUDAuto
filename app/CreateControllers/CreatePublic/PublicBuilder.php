@@ -16,18 +16,22 @@
   class PublicBuilder{
 
     public function createPublic(){
-
       $this->createMainIndex();
+      $this->createHtaccess();
     }
 
     public function createHtaccess(){
       $htaccess = new StringBuilder();
-      $htaccess->append('<?php');
-      $htaccess->append('\n');
-      $htaccess->append('require_once "../vendor/autoload.php";');
-      $htaccess->append('require_once "../core/bootstrap.php";');
+      $htaccess->append('RewriteEngine ON');
+      $htaccess->append("\n");
+      $htaccess->append('RewriteCond %{REQUEST_FILENAME} !-f');
+      $htaccess->append("\n");
+      $htaccess->append('RewriteCond %{REQUEST_FILENAME} !-d');
+      $htaccess->append("\n");
+      $htaccess->append('RewriteRule ^(.*)$ index.php [NC,L,QSA]');
+      
       FileBuilder::buildPHPClassFileOrDir(
-        "../../../project/public/.htaccess", 
+        "../../project/public/.htaccess", 
         $htaccess,
         ''
       );
@@ -36,12 +40,12 @@
     public function createMainIndex(){
       $mainIndex = new StringBuilder();
       $mainIndex->append('<?php');
-      $mainIndex->append('\n');
+      $mainIndex->append("\n");
       $mainIndex->append('require_once "../vendor/autoload.php";');
+      $mainIndex->append("\n");
       $mainIndex->append('require_once "../core/bootstrap.php";');
-      echo 'oi';
       FileBuilder::buildPHPClassFileOrDir(
-        "../../../project/public/index", 
+        "../../project/public/index", 
         $mainIndex
       );
     }

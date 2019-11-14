@@ -83,7 +83,7 @@
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/composer", 
         $composer,
-        "json"
+        ".json"
       );
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/routes", 

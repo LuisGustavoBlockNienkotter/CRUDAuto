@@ -5,9 +5,9 @@
   class FileBuilder{
     
   private static function buildFolder($local){
-    mkdir($local);
+    mkdir($local, 0700);
   }
-  public static function buildPHPClassFileOrDir($local, $conteudo, $extensao = "php"){
+  public static function buildPHPClassFileOrDir($local, $conteudo, $extensao = ".php"){
       $explode = array_filter(explode("/", $local));
       $dir = "";
       $numItems = count($explode);
@@ -22,8 +22,8 @@
       }
   }
 
-  public static function buildPHPClassFile($local, $conteudo, $extensao = "php"){
-    file_put_contents($local . "." . $extensao, $conteudo);
+  public static function buildPHPClassFile($local, $conteudo, $extensao = ".php"){
+    file_put_contents($local . $extensao, $conteudo);
   }
 
   }
