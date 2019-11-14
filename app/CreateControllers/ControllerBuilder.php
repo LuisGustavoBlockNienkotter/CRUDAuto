@@ -33,9 +33,9 @@
                   ->setNamespace('app\controllers')
                   ->addUse('core\AbsController')
                   ->addMember((new Method())
-                    ->setName('findAll')
+                    ->setName('index')
                     ->setVisibility('public')
-                    ->setBody('$this->requisitarView(\'index\');'));
+                    ->setBody('$this->requestView(\'index\');'));
       $homeScript = $this->printer->printClass($homeClass);
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/controllers/HomeController", 

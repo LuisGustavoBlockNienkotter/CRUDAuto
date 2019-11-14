@@ -10,6 +10,8 @@
   use app\CreateModel\CreateDto\BuildDto;
   use app\CreateRoutes\RouteBuilder;
   use app\CreateView\ViewBuilder;
+  use app\CreateControllers\CreatePublic\PublicBuilder;
+
 
   (new BuildJson('../CreateControllers/test.sql'))->getJson();
   (new ControllerBuilder('results.json'))->createControllerClass();
@@ -21,4 +23,6 @@
   (new ViewBuilder())->createViews();
   exec("cd ../../project/ && composer update");
   exec("cd ../../project/ && composer dump-autoload -o");
+  exec("cd ../../project/ && git clone https://joaoback47@bitbucket.org/joaoback47/core.git");
+  (new PublicBuilder())->createPublic();
 ?>
