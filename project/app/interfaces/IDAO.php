@@ -1,9 +1,9 @@
 <?php
 namespace app\interfaces; 
 interface IDAO{
-	public function post($object);
-	public function get($object);
-	public function put($object);
+	public function insert($object);
+	public function findAll();
+	public function update($object);
 	public function delete($object);
 }
 ?>

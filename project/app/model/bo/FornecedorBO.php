@@ -10,20 +10,20 @@ class FornecedorBO{
 	public function __construct($fornecedorDAO){
 		$this->fornecedorDAO = $fornecedorDAO;
 	}
-	public function inserir($fornecedor){
-		return $this->fornecedorDAO->inserir($fornecedor);
+	public function insert($fornecedor){
+		return $this->fornecedorDAO->insert($fornecedor);
 	}
-	public function atualizar($fornecedor){
-		return $this->fornecedorDAO->atualizar($fornecedor);
+	public function update($fornecedor){
+		return $this->fornecedorDAO->update($fornecedor);
 	}
-	public function deletar($fornecedor){
-		return $this->fornecedorDAO->deletar($fornecedor);
+	public function delete($fornecedor){
+		return $this->fornecedorDAO->delete($fornecedor);
 	}
-	public function listar($fornecedor){
-		return $this->fornecedorDAO->listar($fornecedor);
+	public function findAll(){
+		return $this->fornecedorDAO->findAll();
 	}
-	public function procurarPorId($fornecedor){
-		return $this->fornecedorDAO->procurarPorId($fornecedor);
+	public function findById($fornecedor){
+		return $this->fornecedorDAO->findById($fornecedor);
 	}
 }
 ?>

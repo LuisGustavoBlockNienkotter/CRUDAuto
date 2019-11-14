@@ -6,7 +6,7 @@ use app\interfaces\IDAO;
 use PDO;
 
 class RocketDao extends Conexao implements IDAO{
-	public function post($object){
+	public function insert($object){
 		$stmt = $this->getPdo()->prepare("INSERT INTO rocket
 										(id, codigo, altura, largura, peso)
 										VALUES (:id, :codigo, :altura, :largura, :peso)");
@@ -24,7 +24,7 @@ class RocketDao extends Conexao implements IDAO{
 
 		$stmt->execute();
 	}
-	public function get($object){
+	public function findAll(){
 		try{
 			$query = $this->getPdo()->query("SELECT * FROM rocket;");
 			$array = array();
@@ -37,7 +37,7 @@ class RocketDao extends Conexao implements IDAO{
 			echo "Error: " . $e->getMessage();
 		}
 	}
-	public function put($object){
+	public function update($object){
 		try{
 			$stmt = $this->getPdo()->prepare("UPDATE rocket SET codigo = :codigo, altura = :altura, largura = :largura, peso = :peso
 						 WHERE id = :id");
@@ -72,5 +72,20 @@ class RocketDao extends Conexao implements IDAO{
 			echo "Error: " . $e->getMessage();
 		}
 	}
-}
+	public function findById($objeto){
+		$this->getPdo()->prepare("SELECT * FROM rocket WHERE id = :id;");
+		$stmt->bindParam(':id', $id);
+		$id = $objeto->getId(); 
+		$stmt->execute();
+		while ($obj = $stmt->fetch(PDO::FETCH_ASSC)){
+			$r = (new Rocket())->
+			setId($obj['rocket_id'])
+			->setCodigo($obj['rocket_codigo'])
+			->setAltura($obj['rocket_altura'])
+			->setLargura($obj['rocket_largura'])
+			->setPeso($obj['rocket_peso']);
+		}
+		return $obj;
+	}
+	}
 ?>

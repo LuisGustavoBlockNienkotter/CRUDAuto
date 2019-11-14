@@ -61,6 +61,7 @@ class BuildDao
         }
         return $params;
     }
+    
 
     private function createOrdenedParamsWithDots($object)
     {
@@ -91,6 +92,71 @@ class BuildDao
             
         }
         return $bind_params;
+    }
+    
+    private function createFindByIdMethodBody($object){
+        $findbyid = new StringBuilder();
+        $findbyid->append("public function findById(\$objeto){");
+        $findbyid->append("\n");
+        $findbyid->append("\$this->getPdo()->prepare(");
+        $findbyid->append("\"SELECT * FROM ");
+        $findbyid->append($object['name']);
+        $findbyid->append(" WHERE ");
+        $findbyid->append($object['parameters'][0]);
+        $findbyid->append(" = :");
+        $findbyid->append($object['parameters'][0]);
+        $findbyid->append(";\"");
+        $findbyid->append(");");
+        $findbyid->append("\n");
+        $findbyid->append("\$stmt->bindParam(");
+        $findbyid->append("':");
+        $findbyid->append($object['parameters'][0]);
+        $findbyid->append("'");
+        $findbyid->append(", $");
+        $findbyid->append($object['parameters'][0]);
+        $findbyid->append(");");
+        $findbyid->append("\n");
+        $findbyid->append("$");
+        $findbyid->append($object['parameters'][0]);
+        $findbyid->append(" = ");
+        $findbyid->append("\$objeto->get");
+        $findbyid->append(Helpers::strToUCFirst($object['parameters'][0]));
+        $findbyid->append("(); ");
+        $findbyid->append("\n");
+        $findbyid->append("\$stmt->execute();");
+        $findbyid->append("\n");
+        $findbyid->append("while (\$obj = \$stmt->fetch(PDO::FETCH_ASSC)){");
+        $findbyid->append("\n");
+        $findbyid->append("\$r = (new ");
+        $findbyid->append(Helpers::strToUCFirst($object['name']));
+        $findbyid->append("())->");  
+        $findbyid->append("\n"); 
+        $params = new StringBuilder(); 
+
+              /* Constrói funções set */
+      for ($i = 0; $i < count($object["parameters"]); $i++){
+        $params->append('set');
+        $params->append(Helpers::strToUCFirst($object["parameters"][$i]));
+        $params->append("(");
+        $params->append("\$obj['" . $object["name"] . "_" . $object["parameters"][$i]."'])"); 
+        if(count($object["parameters"])-1 === $i){
+          $params->append(";");
+        }else{
+          $params->append("\n");
+          $params->append("->");
+        }
+      }
+
+        $findbyid->append($params);    
+        $findbyid->append("\n");  
+        $findbyid->append("}");  
+        $findbyid->append("\n");    
+        $findbyid->append("return \$obj;");  
+        $findbyid->append("\n");
+        $findbyid->append("}");
+        $findbyid->append("\n");
+
+        return Helpers::indentTest($findbyid, 1);
     }
 
     private function createSetterValuesForBindParams($object, $space = false)
@@ -163,7 +229,7 @@ class BuildDao
 
     private function createInsertFunctions($object)
     {
-        $function = "\t".'public function post($object){'."\n".
+        $function = "\t".'public function insert($object){'."\n".
                     "\t"."\t".'$stmt = $this->getPdo()->prepare("INSERT INTO '.$object['name']."\n".
                     "\t"."\t"."\t"."\t"."\t"."\t"."\t"."\t"."\t"."\t".'('.$this->createOrdenedParamsWithoutDots($object).')'."\n".
                     "\t"."\t"."\t"."\t"."\t"."\t"."\t"."\t"."\t"."\t".'VALUES ('.$this->createOrdenedParamsWithDots($object).')");'."\n".
@@ -176,7 +242,7 @@ class BuildDao
 
     private function createGetAllFunctions($object)
     {
-        $function = "\t".'public function get($object){'."\n".
+        $function = "\t".'public function findAll(){'."\n".
                         "\t"."\t".'try{'."\n".
                             "\t"."\t"."\t".'$query = $this->getPdo()->query("SELECT * FROM '.$object['name'].';");'."\n".
                             "\t"."\t"."\t".'$array = array();'."\n".
@@ -195,7 +261,7 @@ class BuildDao
     
     private function createUpdateFunction($object)
     {
-        $function = "\t".'public function put($object){'."\n".
+        $function = "\t".'public function update($object){'."\n".
                     "\t"."\t".'try{'."\n".
                     "\t"."\t"."\t".'$stmt = $this->getPdo()->prepare("UPDATE '.$object['name'].' SET '.$this->createParamsForUpdate($object)[1]."\n".
                     "\t"."\t"."\t"."\t"."\t"."\t".' WHERE '.$this->createParamsForUpdate($object)[0].'");'."\n".
@@ -231,9 +297,9 @@ class BuildDao
         $str =  '<?php'."\n".
                 'namespace app\interfaces; ' . "\n" .
                 'interface IDAO{'."\n".
-                "\t".'public function post($object);'."\n".
-                "\t".'public function get($object);'."\n".
-                "\t".'public function put($object);'."\n".
+                "\t".'public function insert($object);'."\n".
+                "\t".'public function findAll();'."\n".
+                "\t".'public function update($object);'."\n".
                 "\t".'public function delete($object);'."\n".
                 '}'."\n".
                 '?>';
@@ -284,6 +350,7 @@ class BuildDao
                     $this->createGetAllFunctions($value).
                     $this->createUpdateFunction($value).
                     $this->createDeleteFunction($value).
+                    $this->createFindByIdMethodBody($value).
                     '}'."\n".
                     '?>';
 

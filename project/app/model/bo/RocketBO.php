@@ -10,20 +10,20 @@ class RocketBO{
 	public function __construct($rocketDAO){
 		$this->rocketDAO = $rocketDAO;
 	}
-	public function inserir($rocket){
-		return $this->rocketDAO->inserir($rocket);
+	public function insert($rocket){
+		return $this->rocketDAO->insert($rocket);
 	}
-	public function atualizar($rocket){
-		return $this->rocketDAO->atualizar($rocket);
+	public function update($rocket){
+		return $this->rocketDAO->update($rocket);
 	}
-	public function deletar($rocket){
-		return $this->rocketDAO->deletar($rocket);
+	public function delete($rocket){
+		return $this->rocketDAO->delete($rocket);
 	}
-	public function listar($rocket){
-		return $this->rocketDAO->listar($rocket);
+	public function findAll(){
+		return $this->rocketDAO->findAll();
 	}
-	public function procurarPorId($rocket){
-		return $this->rocketDAO->procurarPorId($rocket);
+	public function findById($rocket){
+		return $this->rocketDAO->findById($rocket);
 	}
 }
 ?>

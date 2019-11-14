@@ -10,20 +10,20 @@ class ProdutoBO{
 	public function __construct($produtoDAO){
 		$this->produtoDAO = $produtoDAO;
 	}
-	public function inserir($produto){
-		return $this->produtoDAO->inserir($produto);
+	public function insert($produto){
+		return $this->produtoDAO->insert($produto);
 	}
-	public function atualizar($produto){
-		return $this->produtoDAO->atualizar($produto);
+	public function update($produto){
+		return $this->produtoDAO->update($produto);
 	}
-	public function deletar($produto){
-		return $this->produtoDAO->deletar($produto);
+	public function delete($produto){
+		return $this->produtoDAO->delete($produto);
 	}
-	public function listar($produto){
-		return $this->produtoDAO->listar($produto);
+	public function findAll(){
+		return $this->produtoDAO->findAll();
 	}
-	public function procurarPorId($produto){
-		return $this->produtoDAO->procurarPorId($produto);
+	public function findById($produto){
+		return $this->produtoDAO->findById($produto);
 	}
 }
 ?>

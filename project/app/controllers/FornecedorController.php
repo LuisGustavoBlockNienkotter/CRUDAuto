@@ -8,47 +8,47 @@ use app\model\dto\Fornecedor;
 
 class FornecedorController extends AbsController{
 	
-	public function index(){
+	public function findAll(){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
-		$obj = $fornecedorBO->listar();
+		$obj = $fornecedorBO->findAll();
 		$this->view->fornecedor = $obj;
-		$this->requisitarView('fornecedor/index');
+		$this->requestView('fornecedor/index');
 	}
-	public function inserir($request){
+	public function insert($request){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
 		$fornecedor = (new Fornecedor())->setId($request->post->id)
 		->setNome($request->post->nome)
 		->setCpf($request->post->cpf);
-		$fornecedorBO->inserir($fornecedor);
-		$this->requisitarView('fornecedor/cadastrar');
+		$fornecedorBO->insert($fornecedor);
+		$this->requestView('fornecedor/insert');
 	}
-	public function deletar($id){
+	public function delete($id){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
 		$fornecedor = (new Fornecedor())->setId($request->post->id);
-		$fornecedorBO->deletar($fornecedor);
-		$this->requisitarView('fornecedor/deletar');
+		$fornecedorBO->delete($fornecedor);
+		$this->requestView('fornecedor/delete');
 	}
-	public function atualizar($id, $request){
+	public function update($id, $request){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
 		$fornecedor = (new Fornecedor())->setId($request->post->id);
-		$obj = $fornecedorBO->procurarPorId($fornecedor);
+		$obj = $fornecedorBO->findById($fornecedor);
 		$obj = (new Fornecedor())->setId($request->post->id)
 		->setNome($request->post->nome)
 		->setCpf($request->post->cpf);
-		$fornecedorBO->atualizar($fornecedor);
-		$this->requisitarView('fornecedor/atualizar');
+		$fornecedorBO->update($fornecedor);
+		$this->requestView('fornecedor/update');
 	}
-	public function procurarPorId($id){
+	public function findById($id){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
 		$fornecedor = (new Fornecedor())->setId($request->post->id);
-		$obj = $fornecedorBO->procurarPorId($fornecedor);
+		$obj = $fornecedorBO->findById($fornecedor);
 		$this->view->fornecedor = $obj;
-		$this->requisitarView('fornecedor/visualizar');
+		$this->requestView('fornecedor/findById');
 	}
 }
 ?>

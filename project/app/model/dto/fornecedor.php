@@ -1,4 +1,5 @@
 <?php
+namespace app\model\dto; 
 class Fornecedor { 
 
 	private $id;

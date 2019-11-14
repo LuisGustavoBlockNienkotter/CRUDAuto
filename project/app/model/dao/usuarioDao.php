@@ -6,7 +6,7 @@ use app\interfaces\IDAO;
 use PDO;
 
 class UsuarioDao extends Conexao implements IDAO{
-	public function post($object){
+	public function insert($object){
 		$stmt = $this->getPdo()->prepare("INSERT INTO usuario
 										(id, nome, login, senha)
 										VALUES (:id, :nome, :login, :senha)");
@@ -22,7 +22,7 @@ class UsuarioDao extends Conexao implements IDAO{
 
 		$stmt->execute();
 	}
-	public function get($object){
+	public function findAll(){
 		try{
 			$query = $this->getPdo()->query("SELECT * FROM usuario;");
 			$array = array();
@@ -35,7 +35,7 @@ class UsuarioDao extends Conexao implements IDAO{
 			echo "Error: " . $e->getMessage();
 		}
 	}
-	public function put($object){
+	public function update($object){
 		try{
 			$stmt = $this->getPdo()->prepare("UPDATE usuario SET nome = :nome, login = :login, senha = :senha
 						 WHERE id = :id");
@@ -68,5 +68,19 @@ class UsuarioDao extends Conexao implements IDAO{
 			echo "Error: " . $e->getMessage();
 		}
 	}
-}
+	public function findById($objeto){
+		$this->getPdo()->prepare("SELECT * FROM usuario WHERE id = :id;");
+		$stmt->bindParam(':id', $id);
+		$id = $objeto->getId(); 
+		$stmt->execute();
+		while ($obj = $stmt->fetch(PDO::FETCH_ASSC)){
+			$r = (new Usuario())->
+			setId($obj['usuario_id'])
+			->setNome($obj['usuario_nome'])
+			->setLogin($obj['usuario_login'])
+			->setSenha($obj['usuario_senha']);
+		}
+		return $obj;
+	}
+	}
 ?>

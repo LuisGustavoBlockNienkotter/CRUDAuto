@@ -49,35 +49,33 @@ class BuildBo{
                         ->setBody($this->buildConstructMethodBody($classes[$i]["name"])))
 
                         ->addMember((new Method())
-                        ->setName('inserir')
+                        ->setName('insert')
                         ->setVisibility('public')
                         ->addParameter((new Parameter())
                             ->setName(Helpers::strToLoweredCase($classes[$i]["name"])))
                         ->setBody($this->buildInsertMethodBody($classes[$i]["name"])))
 
                         ->addMember((new Method())
-                        ->setName('atualizar')
+                        ->setName('update')
                         ->setVisibility('public')
                         ->addParameter((new Parameter())
                             ->setName(Helpers::strToLoweredCase($classes[$i]["name"])))
                         ->setBody($this->buildUpdateMethodBody($classes[$i]["name"])))
 
                         ->addMember((new Method())
-                        ->setName('deletar')
+                        ->setName('delete')
                         ->setVisibility('public')
                         ->addParameter((new Parameter())
                             ->setName(Helpers::strToLoweredCase($classes[$i]["name"])))
                         ->setBody($this->buildDeleteMethodBody($classes[$i]["name"])))
 
                         ->addMember((new Method())
-                        ->setName('listar')
+                        ->setName('findAll')
                         ->setVisibility('public')
-                        ->addParameter((new Parameter())
-                            ->setName(Helpers::strToLoweredCase($classes[$i]["name"])))
                         ->setBody($this->buildFindAllMethodBody($classes[$i]["name"])))
 
                         ->addMember((new Method())
-                        ->setName('procurarPorId')
+                        ->setName('findById')
                         ->setVisibility('public')
                         ->addParameter((new Parameter())
                             ->setName(Helpers::strToLoweredCase($classes[$i]["name"])))
@@ -111,7 +109,7 @@ class BuildBo{
         $body = new StringBuilder();
         $body->append('return $this->');
         $body->append(Helpers::strToDAOName($class));
-        $body->append("->inserir("); 
+        $body->append("->insert("); 
         $body->append("$");
         $body->append(Helpers::strToLoweredCase($class));
         $body->append(");");
@@ -122,7 +120,7 @@ class BuildBo{
         $body = new StringBuilder();
         $body->append('return $this->');
         $body->append(Helpers::strToDAOName($class));
-        $body->append("->deletar("); 
+        $body->append("->delete("); 
         $body->append("$");
         $body->append(Helpers::strToLoweredCase($class));
         $body->append(");");
@@ -133,7 +131,7 @@ class BuildBo{
         $body = new StringBuilder();
         $body->append('return $this->');
         $body->append(Helpers::strToDAOName($class));
-        $body->append("->atualizar("); 
+        $body->append("->update("); 
         $body->append("$");
         $body->append(Helpers::strToLoweredCase($class));
         $body->append(");");
@@ -144,7 +142,7 @@ class BuildBo{
         $body = new StringBuilder();
         $body->append('return $this->');
         $body->append(Helpers::strToDAOName($class));
-        $body->append("->procurarPorId("); 
+        $body->append("->findById("); 
         $body->append("$");
         $body->append(Helpers::strToLoweredCase($class));
         $body->append(");");
@@ -155,10 +153,7 @@ class BuildBo{
         $body = new StringBuilder();
         $body->append('return $this->');
         $body->append(Helpers::strToDAOName($class));
-        $body->append("->listar("); 
-        $body->append("$");
-        $body->append(Helpers::strToLoweredCase($class));
-        $body->append(");");
+        $body->append("->findAll();"); 
         return $body;
     }
 }

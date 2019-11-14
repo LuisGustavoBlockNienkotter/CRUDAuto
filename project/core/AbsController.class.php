@@ -12,7 +12,7 @@
             $this->view = new \stdClass;
         }
 
-        protected function requisitarView($caminhoDaView, $caminhoDoLayout = null){
+        protected function requestView($caminhoDaView, $caminhoDoLayout = null){
             $this->caminhoDaView = $caminhoDaView;
             $this->caminhoDoLayout = $caminhoDoLayout;
             if($caminhoDoLayout){

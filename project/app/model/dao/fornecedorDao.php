@@ -6,7 +6,7 @@ use app\interfaces\IDAO;
 use PDO;
 
 class FornecedorDao extends Conexao implements IDAO{
-	public function post($object){
+	public function insert($object){
 		$stmt = $this->getPdo()->prepare("INSERT INTO fornecedor
 										(id, nome, cpf)
 										VALUES (:id, :nome, :cpf)");
@@ -20,7 +20,7 @@ class FornecedorDao extends Conexao implements IDAO{
 
 		$stmt->execute();
 	}
-	public function get($object){
+	public function findAll(){
 		try{
 			$query = $this->getPdo()->query("SELECT * FROM fornecedor;");
 			$array = array();
@@ -33,7 +33,7 @@ class FornecedorDao extends Conexao implements IDAO{
 			echo "Error: " . $e->getMessage();
 		}
 	}
-	public function put($object){
+	public function update($object){
 		try{
 			$stmt = $this->getPdo()->prepare("UPDATE fornecedor SET nome = :nome, cpf = :cpf
 						 WHERE id = :id");
@@ -64,5 +64,18 @@ class FornecedorDao extends Conexao implements IDAO{
 			echo "Error: " . $e->getMessage();
 		}
 	}
-}
+	public function findById($objeto){
+		$this->getPdo()->prepare("SELECT * FROM fornecedor WHERE id = :id;");
+		$stmt->bindParam(':id', $id);
+		$id = $objeto->getId(); 
+		$stmt->execute();
+		while ($obj = $stmt->fetch(PDO::FETCH_ASSC)){
+			$r = (new Fornecedor())->
+			setId($obj['fornecedor_id'])
+			->setNome($obj['fornecedor_nome'])
+			->setCpf($obj['fornecedor_cpf']);
+		}
+		return $obj;
+	}
+	}
 ?>

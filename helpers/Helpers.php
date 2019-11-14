@@ -28,10 +28,10 @@
       return ucfirst(strtolower($tableName));
     }
 
-    public static function indentTest($script){
+    public static function indentTest($script, $i = 0){
       $withoutTabs = preg_replace('/\t/', '', $script);
       $array = preg_split("/\r\n|\n|\r/", $withoutTabs);
-      return self::indent($array, 0);
+      return self::indent($array, $i);
     }
 
     public static function indent($arr, $indent){

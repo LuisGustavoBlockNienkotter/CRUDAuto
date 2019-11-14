@@ -84,6 +84,8 @@ class BuildDto
     private function createStringClass($name, $parameters)
     {      
         $str =  '<?php'.
+                "\n" . 
+                "namespace app\\model\\dto; " . 
                 "\n"
                 .'class '. ucfirst($name) . ' { '."\n".
                 "\n".

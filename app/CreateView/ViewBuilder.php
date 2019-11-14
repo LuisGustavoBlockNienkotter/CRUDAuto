@@ -32,7 +32,9 @@
       <head>
       </head>
       <body>
-        $this->view->produto
+        <?php foreach ($this->view->produto as $produto): ?>
+        <h1> <?php echo $produto->getDescricao(); ?> </h1>
+        <?php endforeach; ?>
       </body>
       </html>';
       FileBuilder::buildPHPClassFileOrDir(

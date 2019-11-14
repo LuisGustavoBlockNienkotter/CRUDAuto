@@ -8,49 +8,49 @@ use app\model\dto\Usuario;
 
 class UsuarioController extends AbsController{
 	
-	public function index(){
+	public function findAll(){
 		$usuarioDAO = new UsuarioDAO();
 		$usuarioBO = new UsuarioBO($usuarioDAO);
-		$obj = $usuarioBO->listar();
+		$obj = $usuarioBO->findAll();
 		$this->view->usuario = $obj;
-		$this->requisitarView('usuario/index');
+		$this->requestView('usuario/index');
 	}
-	public function inserir($request){
+	public function insert($request){
 		$usuarioDAO = new UsuarioDAO();
 		$usuarioBO = new UsuarioBO($usuarioDAO);
 		$usuario = (new Usuario())->setId($request->post->id)
 		->setNome($request->post->nome)
 		->setLogin($request->post->login)
 		->setSenha($request->post->senha);
-		$usuarioBO->inserir($usuario);
-		$this->requisitarView('usuario/cadastrar');
+		$usuarioBO->insert($usuario);
+		$this->requestView('usuario/insert');
 	}
-	public function deletar($id){
+	public function delete($id){
 		$usuarioDAO = new UsuarioDAO();
 		$usuarioBO = new UsuarioBO($usuarioDAO);
 		$usuario = (new Usuario())->setId($request->post->id);
-		$usuarioBO->deletar($usuario);
-		$this->requisitarView('usuario/deletar');
+		$usuarioBO->delete($usuario);
+		$this->requestView('usuario/delete');
 	}
-	public function atualizar($id, $request){
+	public function update($id, $request){
 		$usuarioDAO = new UsuarioDAO();
 		$usuarioBO = new UsuarioBO($usuarioDAO);
 		$usuario = (new Usuario())->setId($request->post->id);
-		$obj = $usuarioBO->procurarPorId($usuario);
+		$obj = $usuarioBO->findById($usuario);
 		$obj = (new Usuario())->setId($request->post->id)
 		->setNome($request->post->nome)
 		->setLogin($request->post->login)
 		->setSenha($request->post->senha);
-		$usuarioBO->atualizar($usuario);
-		$this->requisitarView('usuario/atualizar');
+		$usuarioBO->update($usuario);
+		$this->requestView('usuario/update');
 	}
-	public function procurarPorId($id){
+	public function findById($id){
 		$usuarioDAO = new UsuarioDAO();
 		$usuarioBO = new UsuarioBO($usuarioDAO);
 		$usuario = (new Usuario())->setId($request->post->id);
-		$obj = $usuarioBO->procurarPorId($usuario);
+		$obj = $usuarioBO->findById($usuario);
 		$this->view->usuario = $obj;
-		$this->requisitarView('usuario/visualizar');
+		$this->requestView('usuario/findById');
 	}
 }
 ?>

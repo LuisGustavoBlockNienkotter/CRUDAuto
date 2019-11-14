@@ -8,14 +8,14 @@ use app\model\dto\Rocket;
 
 class RocketController extends AbsController{
 	
-	public function index(){
+	public function findAll(){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);
-		$obj = $rocketBO->listar();
+		$obj = $rocketBO->findAll();
 		$this->view->rocket = $obj;
-		$this->requisitarView('rocket/index');
+		$this->requestView('rocket/index');
 	}
-	public function inserir($request){
+	public function insert($request){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);
 		$rocket = (new Rocket())->setId($request->post->id)
@@ -23,36 +23,36 @@ class RocketController extends AbsController{
 		->setAltura($request->post->altura)
 		->setLargura($request->post->largura)
 		->setPeso($request->post->peso);
-		$rocketBO->inserir($rocket);
-		$this->requisitarView('rocket/cadastrar');
+		$rocketBO->insert($rocket);
+		$this->requestView('rocket/insert');
 	}
-	public function deletar($id){
+	public function delete($id){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);
 		$rocket = (new Rocket())->setId($request->post->id);
-		$rocketBO->deletar($rocket);
-		$this->requisitarView('rocket/deletar');
+		$rocketBO->delete($rocket);
+		$this->requestView('rocket/delete');
 	}
-	public function atualizar($id, $request){
+	public function update($id, $request){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);
 		$rocket = (new Rocket())->setId($request->post->id);
-		$obj = $rocketBO->procurarPorId($rocket);
+		$obj = $rocketBO->findById($rocket);
 		$obj = (new Rocket())->setId($request->post->id)
 		->setCodigo($request->post->codigo)
 		->setAltura($request->post->altura)
 		->setLargura($request->post->largura)
 		->setPeso($request->post->peso);
-		$rocketBO->atualizar($rocket);
-		$this->requisitarView('rocket/atualizar');
+		$rocketBO->update($rocket);
+		$this->requestView('rocket/update');
 	}
-	public function procurarPorId($id){
+	public function findById($id){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);
 		$rocket = (new Rocket())->setId($request->post->id);
-		$obj = $rocketBO->procurarPorId($rocket);
+		$obj = $rocketBO->findById($rocket);
 		$this->view->rocket = $obj;
-		$this->requisitarView('rocket/visualizar');
+		$this->requestView('rocket/findById');
 	}
 }
 ?>

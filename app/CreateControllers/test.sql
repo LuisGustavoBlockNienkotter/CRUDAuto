@@ -1,5 +1,7 @@
 create database project01;
 
+use project01;
+
 create table usuario (
   id int not null,
   nome varchar(50) not null,
@@ -10,7 +12,7 @@ create table usuario (
 
 create table produto (
   id int not null,
-  desc varchar(50) not null,
+  descricao varchar(50) not null,
   ncm varchar(50) not null,
   estoque int not null,
   primary key(id)
@@ -24,7 +26,7 @@ create table fornecedor (
 );
 
 create table rocket (
-  id int not null fasda auto_increment,
+  id int not null auto_increment,
   codigo int not null,
   altura float not null,
   largura float not null,

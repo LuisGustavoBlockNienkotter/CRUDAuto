@@ -8,49 +8,49 @@ use app\model\dto\Produto;
 
 class ProdutoController extends AbsController{
 	
-	public function index(){
+	public function findAll(){
 		$produtoDAO = new ProdutoDAO();
 		$produtoBO = new ProdutoBO($produtoDAO);
-		$obj = $produtoBO->listar();
+		$obj = $produtoBO->findAll();
 		$this->view->produto = $obj;
-		$this->requisitarView('produto/index');
+		$this->requestView('produto/index');
 	}
-	public function inserir($request){
+	public function insert($request){
 		$produtoDAO = new ProdutoDAO();
 		$produtoBO = new ProdutoBO($produtoDAO);
 		$produto = (new Produto())->setId($request->post->id)
-		->setDesc($request->post->desc)
+		->setDescricao($request->post->descricao)
 		->setNcm($request->post->ncm)
 		->setEstoque($request->post->estoque);
-		$produtoBO->inserir($produto);
-		$this->requisitarView('produto/cadastrar');
+		$produtoBO->insert($produto);
+		$this->requestView('produto/insert');
 	}
-	public function deletar($id){
+	public function delete($id){
 		$produtoDAO = new ProdutoDAO();
 		$produtoBO = new ProdutoBO($produtoDAO);
 		$produto = (new Produto())->setId($request->post->id);
-		$produtoBO->deletar($produto);
-		$this->requisitarView('produto/deletar');
+		$produtoBO->delete($produto);
+		$this->requestView('produto/delete');
 	}
-	public function atualizar($id, $request){
+	public function update($id, $request){
 		$produtoDAO = new ProdutoDAO();
 		$produtoBO = new ProdutoBO($produtoDAO);
 		$produto = (new Produto())->setId($request->post->id);
-		$obj = $produtoBO->procurarPorId($produto);
+		$obj = $produtoBO->findById($produto);
 		$obj = (new Produto())->setId($request->post->id)
-		->setDesc($request->post->desc)
+		->setDescricao($request->post->descricao)
 		->setNcm($request->post->ncm)
 		->setEstoque($request->post->estoque);
-		$produtoBO->atualizar($produto);
-		$this->requisitarView('produto/atualizar');
+		$produtoBO->update($produto);
+		$this->requestView('produto/update');
 	}
-	public function procurarPorId($id){
+	public function findById($id){
 		$produtoDAO = new ProdutoDAO();
 		$produtoBO = new ProdutoBO($produtoDAO);
 		$produto = (new Produto())->setId($request->post->id);
-		$obj = $produtoBO->procurarPorId($produto);
+		$obj = $produtoBO->findById($produto);
 		$this->view->produto = $obj;
-		$this->requisitarView('produto/visualizar');
+		$this->requestView('produto/findById');
 	}
 }
 ?>

@@ -10,20 +10,20 @@ class UsuarioBO{
 	public function __construct($usuarioDAO){
 		$this->usuarioDAO = $usuarioDAO;
 	}
-	public function inserir($usuario){
-		return $this->usuarioDAO->inserir($usuario);
+	public function insert($usuario){
+		return $this->usuarioDAO->insert($usuario);
 	}
-	public function atualizar($usuario){
-		return $this->usuarioDAO->atualizar($usuario);
+	public function update($usuario){
+		return $this->usuarioDAO->update($usuario);
 	}
-	public function deletar($usuario){
-		return $this->usuarioDAO->deletar($usuario);
+	public function delete($usuario){
+		return $this->usuarioDAO->delete($usuario);
 	}
-	public function listar($usuario){
-		return $this->usuarioDAO->listar($usuario);
+	public function findAll(){
+		return $this->usuarioDAO->findAll();
 	}
-	public function procurarPorId($usuario){
-		return $this->usuarioDAO->procurarPorId($usuario);
+	public function findById($usuario){
+		return $this->usuarioDAO->findById($usuario);
 	}
 }
 ?>

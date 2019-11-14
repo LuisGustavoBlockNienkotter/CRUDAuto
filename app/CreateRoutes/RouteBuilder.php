@@ -43,7 +43,7 @@
       
       ';
       $classes = $this->json['objects'];
-      $methods = ["index", "atualizar", "inserir", "deletar", "listar"];
+      $methods = ["findAll", "update", "insert", "delete", "findById"];
       $routes = new StringBuilder();
       $routes->append("<?php");
       $routes->append("\n");
@@ -59,7 +59,7 @@
         $class = $classes[$i];
         for($j = 0; $j < count($methods); $j++){
           $routes->append("\$routes[] = ['/" . Helpers::strToLoweredCase($class["name"]));
-          if($methods[$j] != 'index'){
+          if($methods[$j] != 'findAll'){
             $routes->append("/");
             $routes->append("{");
             $routes->append(Helpers::strToLoweredCase($class["parameters"][0]));

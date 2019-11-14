@@ -33,9 +33,9 @@
                   ->setNamespace('app\controllers')
                   ->addUse('core\AbsController')
                   ->addMember((new Method())
-                    ->setName('index')
+                    ->setName('findAll')
                     ->setVisibility('public')
-                    ->setBody('$this->requestView(\'index\', \'baseHtml\');'));
+                    ->setBody('$this->requisitarView(\'index\');'));
       $homeScript = $this->printer->printClass($homeClass);
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/controllers/HomeController", 
@@ -54,26 +54,26 @@
                 ->addUse('app\model\dto\\'. Helpers::strToUCFirst(Helpers::strToLoweredCase($classes[$i]["name"])))
 
                 ->addMember((new Method())
-                  ->setName('index')
+                  ->setName('findAll')
                   ->setVisibility('public')
                   ->setBody($this->buildIndexMethodBody($classes[$i])))
 
                 ->addMember((new Method())
-                  ->setName('inserir')
+                  ->setName('insert')
                   ->setVisibility('public') 
                   ->addParameter((new Parameter())
                     ->setName('request'))
                   ->setBody($this->buildInsertMethodBody($classes[$i])))
 
                 ->addMember((new Method())  
-                  ->setName('deletar')
+                  ->setName('delete')
                   ->setVisibility('public')
                     ->addParameter((new Parameter())
                     ->setName('id'))
                   ->setBody($this->buildDeleteMethodBody($classes[$i])))
 
                 ->addMember((new Method())
-                  ->setName('atualizar')
+                  ->setName('update')
                   ->setVisibility('public')
                     ->addParameter((new Parameter())
                     ->setName('id'))
@@ -82,7 +82,7 @@
                   ->setBody($this->buildUpdateMethodBody($classes[$i])))
 
                 ->addMember((new Method())
-                  ->setName('procurarPorId')
+                  ->setName('findById')
                   ->setVisibility('public')
                   ->addParameter((new Parameter())
                     ->setName('id'))
@@ -115,13 +115,13 @@
       $body->append('$obj = ');
       $body->append('$');
       $body->append(Helpers::strToBOName($class["name"]));
-      $body->append("->listar();");
+      $body->append("->findAll();");
       $body->append("\n");
       $body->append('$this->view->');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(" = \$obj;");
       $body->append("\n");
-      $body->append('$this->requisitarView(\'');
+      $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
       $body->append("index');");
@@ -170,14 +170,14 @@
       $body->append("\n");
       $body->append("$");
       $body->append(Helpers::strToBOName($class["name"]));
-      $body->append("->inserir($");
+      $body->append("->insert($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
       $body->append("\n");
-      $body->append('$this->requisitarView(\'');
+      $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
-      $body->append("cadastrar');");
+      $body->append("insert');");
       return $body;
     }
 
@@ -210,14 +210,14 @@
       $body->append("\n");
       $body->append("$");
       $body->append(Helpers::strToBOName($class["name"]));
-      $body->append("->deletar($");
+      $body->append("->delete($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
       $body->append("\n");
-      $body->append('$this->requisitarView(\'');
+      $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
-      $body->append("deletar');");
+      $body->append("delete');");
 
       return $body;
     }
@@ -269,7 +269,7 @@
       $body->append("\$obj = ");
       $body->append("$");
       $body->append(Helpers::strToBOName($class["name"]));
-      $body->append("->procurarPorId($");
+      $body->append("->findById($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
       $body->append("\n");
@@ -281,14 +281,14 @@
       $body->append("\n");
       $body->append("$");
       $body->append(Helpers::strToBOName($class["name"]));
-      $body->append("->atualizar($");
+      $body->append("->update($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
       $body->append("\n");
-      $body->append('$this->requisitarView(\'');
+      $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
-      $body->append("atualizar');");
+      $body->append("update');");
 
 
       return $body;
@@ -325,7 +325,7 @@
       $body->append("\$obj = ");
       $body->append("$");
       $body->append(Helpers::strToBOName($class["name"]));
-      $body->append("->procurarPorId($");
+      $body->append("->findById($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
 
@@ -335,10 +335,10 @@
       $body->append(" = \$obj;");
       
       $body->append("\n");
-      $body->append('$this->requisitarView(\'');
+      $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
-      $body->append("visualizar');");
+      $body->append("findById');");
 
       return $body;
     }

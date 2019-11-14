@@ -1,26 +1,26 @@
 <?php
 
 $routes[] = ['/', 'HomeController@index'];
-$routes[] = ['/usuario', 'UsuarioController@index'];
-$routes[] = ['/usuario/{id}/atualizar', 'UsuarioController@atualizar'];
-$routes[] = ['/usuario/{id}/inserir', 'UsuarioController@inserir'];
-$routes[] = ['/usuario/{id}/deletar', 'UsuarioController@deletar'];
-$routes[] = ['/usuario/{id}/listar', 'UsuarioController@listar'];
-$routes[] = ['/produto', 'ProdutoController@index'];
-$routes[] = ['/produto/{id}/atualizar', 'ProdutoController@atualizar'];
-$routes[] = ['/produto/{id}/inserir', 'ProdutoController@inserir'];
-$routes[] = ['/produto/{id}/deletar', 'ProdutoController@deletar'];
-$routes[] = ['/produto/{id}/listar', 'ProdutoController@listar'];
-$routes[] = ['/fornecedor', 'FornecedorController@index'];
-$routes[] = ['/fornecedor/{id}/atualizar', 'FornecedorController@atualizar'];
-$routes[] = ['/fornecedor/{id}/inserir', 'FornecedorController@inserir'];
-$routes[] = ['/fornecedor/{id}/deletar', 'FornecedorController@deletar'];
-$routes[] = ['/fornecedor/{id}/listar', 'FornecedorController@listar'];
-$routes[] = ['/rocket', 'RocketController@index'];
-$routes[] = ['/rocket/{id}/atualizar', 'RocketController@atualizar'];
-$routes[] = ['/rocket/{id}/inserir', 'RocketController@inserir'];
-$routes[] = ['/rocket/{id}/deletar', 'RocketController@deletar'];
-$routes[] = ['/rocket/{id}/listar', 'RocketController@listar'];
+$routes[] = ['/usuario', 'UsuarioController@findAll'];
+$routes[] = ['/usuario/{id}/update', 'UsuarioController@update'];
+$routes[] = ['/usuario/{id}/insert', 'UsuarioController@insert'];
+$routes[] = ['/usuario/{id}/delete', 'UsuarioController@delete'];
+$routes[] = ['/usuario/{id}/findById', 'UsuarioController@findById'];
+$routes[] = ['/produto', 'ProdutoController@findAll'];
+$routes[] = ['/produto/{id}/update', 'ProdutoController@update'];
+$routes[] = ['/produto/{id}/insert', 'ProdutoController@insert'];
+$routes[] = ['/produto/{id}/delete', 'ProdutoController@delete'];
+$routes[] = ['/produto/{id}/findById', 'ProdutoController@findById'];
+$routes[] = ['/fornecedor', 'FornecedorController@findAll'];
+$routes[] = ['/fornecedor/{id}/update', 'FornecedorController@update'];
+$routes[] = ['/fornecedor/{id}/insert', 'FornecedorController@insert'];
+$routes[] = ['/fornecedor/{id}/delete', 'FornecedorController@delete'];
+$routes[] = ['/fornecedor/{id}/findById', 'FornecedorController@findById'];
+$routes[] = ['/rocket', 'RocketController@findAll'];
+$routes[] = ['/rocket/{id}/update', 'RocketController@update'];
+$routes[] = ['/rocket/{id}/insert', 'RocketController@insert'];
+$routes[] = ['/rocket/{id}/delete', 'RocketController@delete'];
+$routes[] = ['/rocket/{id}/findById', 'RocketController@findById'];
 
 return $routes;
 

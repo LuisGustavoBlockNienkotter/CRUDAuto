@@ -1,22 +1,23 @@
 <?php
+namespace app\model\dto; 
 class Produto { 
 
 	private $id;
-	private $desc;
+	private $descricao;
 	private $ncm;
 	private $estoque;
 
-	public function __construct ($id, $desc, $ncm, $estoque){
+	public function __construct ($id, $descricao, $ncm, $estoque){
 		$this->id = $id;
-		$this->desc = $desc;
+		$this->descricao = $descricao;
 		$this->ncm = $ncm;
 		$this->estoque = $estoque;
 	}
 	public function getId(){
 		return $this->id;
 	}
-	public function getDesc(){
-		return $this->desc;
+	public function getDescricao(){
+		return $this->descricao;
 	}
 	public function getNcm(){
 		return $this->ncm;
@@ -28,8 +29,8 @@ class Produto {
 		$this->id = $id;
 		return $this;
 	}
-	public function setDesc($desc){
-		$this->desc = $desc;
+	public function setDescricao($descricao){
+		$this->descricao = $descricao;
 		return $this;
 	}
 	public function setNcm($ncm){
