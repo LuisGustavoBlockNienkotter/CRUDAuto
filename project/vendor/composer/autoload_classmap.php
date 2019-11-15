@@ -27,6 +27,6 @@ return array(
     'app\\model\\dto\\Usuario' => $baseDir . '/app/model/dto/usuario.php',
     'core\\AbsController' => $baseDir . '/core/AbsController.class.php',
     'core\\ControllerUtil' => $baseDir . '/core/ControllerUtil.class.php',
-    'core\\Redirecionador' => $baseDir . '/core/Redirecionador.class.php',
-    'core\\Rota' => $baseDir . '/core/Rota.class.php',
+    'core\\Redirector' => $baseDir . '/core/Redirector.php',
+    'core\\Route' => $baseDir . '/core/Route.php',
 );

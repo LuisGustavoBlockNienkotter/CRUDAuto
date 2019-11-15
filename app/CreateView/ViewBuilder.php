@@ -12,6 +12,7 @@
       $this->createProdutoIndexPage();
       $this->createBaseHtmlPage();
       $this->createHeaderPage();
+      $this->createFooterPage();
     }
 
     public function createBaseHtmlPage(){
@@ -25,11 +26,11 @@
       
           <body>
               
-              <?php require_once __DIR__ . "/header.phtml" ?>
+              <?php require_once __DIR__ . "\\\header.phtml" ?>
       
               <?php $this->viewContent() ?>
       
-              <?php require_once __DIR__ . "/footer.phtml" ?>
+              <?php require_once __DIR__ . "\\\footer.phtml" ?>
       
               <script src="../../libs/js/jquery.min.js"></script>
               <script src="../../libs/js/bootstrap.min.js"></script>
@@ -42,15 +43,12 @@
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/view/baseHtml", 
         $indexHtml,
-        "phtml"
+        ".phtml"
       );
     }
 
     public function createHeaderPage(){
-      $indexHtml = '<html>
-      <head>
-      </head>
-      <body>
+      $indexHtml = '<body>
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="home.php"></a>
@@ -82,17 +80,21 @@
           </li>
         </ul>
       </div>
-      </nav>
-      </html>';
+      </nav>';
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/view/header", 
         $indexHtml,
-        "phtml"
+        ".phtml"
       );
     }
     
     public function createFooterPage(){
-      
+      $footerHtml = '<h1>Footer</h1>';
+      FileBuilder::buildPHPClassFileOrDir(
+        "../../project/app/view/footer", 
+        $footerHtml,
+        ".phtml"
+      );
     }
 
     public function createHomeIndexPage(){
@@ -106,7 +108,7 @@
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/view/index", 
         $indexHtml,
-        "phtml"
+        ".phtml"
       );
     }    
     
@@ -123,7 +125,7 @@
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/view/produto/index", 
         $indexHtml,
-        "phtml"
+        ".phtml"
       );
     }
 

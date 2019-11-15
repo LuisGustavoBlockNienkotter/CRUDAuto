@@ -26,9 +26,5 @@
   exec("cd ../../project/ && composer update");
   exec("cd ../../project/ && composer dump-autoload -o");
   exec("cd ../../project/ && git clone https://joaoback47@bitbucket.org/joaoback47/core.git");
-<<<<<<< Updated upstream
   
-=======
-
->>>>>>> Stashed changes
 ?>
