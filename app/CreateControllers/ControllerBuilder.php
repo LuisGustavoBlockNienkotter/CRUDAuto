@@ -25,8 +25,7 @@
       $this->printer = new Printer();
     }
 
-    public function createControllerClass(){
-
+    public function createHomeControllerClass(){
       $homeClass = (new ScriptClass())
                   ->setName('HomeController')
                   ->setExtends('AbsController')
@@ -35,12 +34,18 @@
                   ->addMember((new Method())
                     ->setName('index')
                     ->setVisibility('public')
-                    ->setBody('$this->requestView(\'index\');'));
+                    ->setBody('$this->requestView(\'index\', \'baseHtml\');'));
       $homeScript = $this->printer->printClass($homeClass);
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/controllers/HomeController", 
         $homeScript
       );
+    }
+
+    public function createControllerClass(){
+      
+      $this->createHomeControllerClass();
+
       $classes = $this->json['objects'];
       for ($i = 0; $i < count($classes); $i++){
         $class = (new ScriptClass())
@@ -124,8 +129,8 @@
       $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
-      $body->append("index');");
-
+      $body->append("index', ");
+      $body->append("'baseHtml');");
       return $body;
     }
 
@@ -177,7 +182,8 @@
       $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
-      $body->append("insert');");
+      $body->append("insert', ");
+      $body->append("'baseHtml');");
       return $body;
     }
 
@@ -217,8 +223,8 @@
       $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
-      $body->append("delete');");
-
+      $body->append("delete', ");
+      $body->append("'baseHtml');");
       return $body;
     }
 
@@ -288,8 +294,8 @@
       $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
-      $body->append("update');");
-
+      $body->append("update', ");
+      $body->append("'baseHtml');");
 
       return $body;
     }
@@ -338,8 +344,8 @@
       $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
-      $body->append("findById');");
-
+      $body->append("findById', ");
+      $body->append("'baseHtml');");
       return $body;
     }
 

@@ -13,7 +13,7 @@ class FornecedorController extends AbsController{
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
 		$obj = $fornecedorBO->findAll();
 		$this->view->fornecedor = $obj;
-		$this->requestView('fornecedor/index');
+		$this->requestView('fornecedor/index', 'baseHtml');
 	}
 	public function insert($request){
 		$fornecedorDAO = new FornecedorDAO();
@@ -22,14 +22,14 @@ class FornecedorController extends AbsController{
 		->setNome($request->post->nome)
 		->setCpf($request->post->cpf);
 		$fornecedorBO->insert($fornecedor);
-		$this->requestView('fornecedor/insert');
+		$this->requestView('fornecedor/insert', 'baseHtml');
 	}
 	public function delete($id){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
 		$fornecedor = (new Fornecedor())->setId($request->post->id);
 		$fornecedorBO->delete($fornecedor);
-		$this->requestView('fornecedor/delete');
+		$this->requestView('fornecedor/delete', 'baseHtml');
 	}
 	public function update($id, $request){
 		$fornecedorDAO = new FornecedorDAO();
@@ -40,7 +40,7 @@ class FornecedorController extends AbsController{
 		->setNome($request->post->nome)
 		->setCpf($request->post->cpf);
 		$fornecedorBO->update($fornecedor);
-		$this->requestView('fornecedor/update');
+		$this->requestView('fornecedor/update', 'baseHtml');
 	}
 	public function findById($id){
 		$fornecedorDAO = new FornecedorDAO();
@@ -48,7 +48,7 @@ class FornecedorController extends AbsController{
 		$fornecedor = (new Fornecedor())->setId($request->post->id);
 		$obj = $fornecedorBO->findById($fornecedor);
 		$this->view->fornecedor = $obj;
-		$this->requestView('fornecedor/findById');
+		$this->requestView('fornecedor/findById', 'baseHtml');
 	}
 }
 ?>

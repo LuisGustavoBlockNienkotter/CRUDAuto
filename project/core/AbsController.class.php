@@ -5,25 +5,25 @@
     abstract class AbsController{
 
         protected $view;
-        private $caminhoDaView;
-        private $caminhoDoLayout;
+        private $viewPath;
+        private $viewLayoutPath;
 
         public function __construct(){
             $this->view = new \stdClass;
         }
 
-        protected function requestView($caminhoDaView, $caminhoDoLayout = null){
-            $this->caminhoDaView = $caminhoDaView;
-            $this->caminhoDoLayout = $caminhoDoLayout;
-            if($caminhoDoLayout){
-                $this->conteudoLayout();
+        protected function requestView($viewPath, $viewLayoutPath = null){
+            $this->viewPath = $viewPath;
+            $this->viewLayoutPath = $viewLayoutPath;
+            if($viewLayoutPath){
+                $this->layoutContent();
             }else{
-                $this->conteudoView();
+                $this->viewContent();
             }
 
         }
 
-        protected function conteudoView(){
+        protected function viewContent(){
             if(file_exists(__DIR__ . "/../app/view/{$this->caminhoDaView}.phtml")){
                 require_once(__DIR__ . "/../app/view/{$this->caminhoDaView}.phtml");
             }else{
@@ -31,7 +31,7 @@
             }
         }
 
-        protected function conteudoLayout(){
+        protected function layoutContent(){
             if(file_exists(__DIR__ . "/../app/view/{$this->caminhoDoLayout}.phtml")){
                 require_once(__DIR__ . "/../app/view/{$this->caminhoDoLayout}.phtml");
             }else{

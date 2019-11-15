@@ -13,7 +13,7 @@ class RocketController extends AbsController{
 		$rocketBO = new RocketBO($rocketDAO);
 		$obj = $rocketBO->findAll();
 		$this->view->rocket = $obj;
-		$this->requestView('rocket/index');
+		$this->requestView('rocket/index', 'baseHtml');
 	}
 	public function insert($request){
 		$rocketDAO = new RocketDAO();
@@ -24,14 +24,14 @@ class RocketController extends AbsController{
 		->setLargura($request->post->largura)
 		->setPeso($request->post->peso);
 		$rocketBO->insert($rocket);
-		$this->requestView('rocket/insert');
+		$this->requestView('rocket/insert', 'baseHtml');
 	}
 	public function delete($id){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);
 		$rocket = (new Rocket())->setId($request->post->id);
 		$rocketBO->delete($rocket);
-		$this->requestView('rocket/delete');
+		$this->requestView('rocket/delete', 'baseHtml');
 	}
 	public function update($id, $request){
 		$rocketDAO = new RocketDAO();
@@ -44,7 +44,7 @@ class RocketController extends AbsController{
 		->setLargura($request->post->largura)
 		->setPeso($request->post->peso);
 		$rocketBO->update($rocket);
-		$this->requestView('rocket/update');
+		$this->requestView('rocket/update', 'baseHtml');
 	}
 	public function findById($id){
 		$rocketDAO = new RocketDAO();
@@ -52,7 +52,7 @@ class RocketController extends AbsController{
 		$rocket = (new Rocket())->setId($request->post->id);
 		$obj = $rocketBO->findById($rocket);
 		$this->view->rocket = $obj;
-		$this->requestView('rocket/findById');
+		$this->requestView('rocket/findById', 'baseHtml');
 	}
 }
 ?>
