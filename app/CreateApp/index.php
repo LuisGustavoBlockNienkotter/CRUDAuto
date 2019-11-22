@@ -12,6 +12,8 @@
   use app\CreateView\ViewBuilder;
   use app\CreateControllers\CreatePublic\PublicBuilder;
 
+  ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+  error_reporting(0); // Disable all errors.
 
   // ORDEM DAS PASTAS QUE SERÃO CRIADOS
   (new BuildJson('../CreateControllers/test.sql'))->getJson();
