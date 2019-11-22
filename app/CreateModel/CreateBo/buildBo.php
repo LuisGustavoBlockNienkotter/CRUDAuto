@@ -83,7 +83,6 @@ class BuildBo{
 
 
 
-            print_r($boClass);
             $boScript = $this->printer->printClass($boClass);
             FileBuilder::buildPHPClassFileOrDir(
                 "../../project/app/model/bo/" . Helpers::strToBOName($classes[$i]["name"], true), 
