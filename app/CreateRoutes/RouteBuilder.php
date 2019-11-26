@@ -59,13 +59,16 @@
         $class = $classes[$i];
         for($j = 0; $j < count($methods); $j++){
           $routes->append("\$routes[] = ['/" . Helpers::strToLoweredCase($class["name"]));
-          if($methods[$j] != 'findAll'){
+          if($methods[$j] != 'findAll' && $methods[$j] != 'insert'){
             $routes->append("/");
             $routes->append("{");
             $routes->append(Helpers::strToLoweredCase($class["parameters"][0]));
             $routes->append("}");
             $routes->append("/");
             $routes->append($methods[$j]);
+          }
+          if($methods[$j] == 'insert'){
+            $routes->append('/insert');
           }
           $routes->append("', '");
           $routes->append(Helpers::strToControllerName($class["name"]));

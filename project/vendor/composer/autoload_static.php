@@ -48,6 +48,10 @@ class ComposerStaticInit0e78d01b6619bb948215d2e577e62f45
         'app\\model\\dto\\Produto' => __DIR__ . '/../..' . '/app/model/dto/produto.php',
         'app\\model\\dto\\Rocket' => __DIR__ . '/../..' . '/app/model/dto/rocket.php',
         'app\\model\\dto\\Usuario' => __DIR__ . '/../..' . '/app/model/dto/usuario.php',
+        'core\\AbsController' => __DIR__ . '/../..' . '/core/AbsController.php',
+        'core\\ControllerUtil' => __DIR__ . '/../..' . '/core/ControllerUtil.php',
+        'core\\Redirector' => __DIR__ . '/../..' . '/core/Redirector.php',
+        'core\\Route' => __DIR__ . '/../..' . '/core/Route.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
