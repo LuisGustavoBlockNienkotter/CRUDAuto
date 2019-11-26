@@ -1,0 +1,9 @@
+<html>
+      <head>
+      </head>
+      <body>
+        <?php foreach ($this->view->produto as $produto): ?>
+        <h1> <?php echo $produto->getDescricao(); ?> </h1>
+        <?php endforeach; ?>
+      </body>
+      </html>

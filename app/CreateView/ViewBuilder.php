@@ -26,7 +26,7 @@
       
           <body>
               
-              <?php require_once __DIR__ . "\\\header.phtml" ?>
+              <?php require_once __DIR__ . "\\\header.html" ?>
       
               <?php $this->viewContent() ?>
       
@@ -48,43 +48,25 @@
     }
 
     public function createHeaderPage(){
-      $indexHtml = '<body>
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="home.php"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            Home
-            </a>
-          </li>	
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Cadastros
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/produto/cadastrar">Produtos</a>
-            </div>
-          </li>			
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Visualizar
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/produtos">Produtos</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-      </nav>';
+      $html = '<header class="objects-header">
+                    <div class="row">
+                        <div class="col-md-2 linha-header text-center">
+                            <span class="titulo-painel-adminitrativo"><a href="">Painel Administrativo</a></span>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="select-header">
+                                <option>** TABELAS **</option>';
+      foreach ($this->objects as $key => $object) {
+          $html .= '<option>'.$object['name'].'</option>';
+      }
+      $html .= '</select>
+              </div>
+          </div>
+        </header>';
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/view/header", 
-        $indexHtml,
-        ".phtml"
+        $html,
+        ".html"
       );
     }
     
