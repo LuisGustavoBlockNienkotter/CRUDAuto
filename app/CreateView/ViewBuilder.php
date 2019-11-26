@@ -4,14 +4,31 @@
   require_once('../../vendor/autoload.php');
 
   use app\AuxBuilders\File\FileBuilder;
+  use app\AuxBuilders\Script\ScriptClass;
+  use app\AuxBuilders\Script\Method;
+  use app\AuxBuilders\Script\Parameter;
+  use app\AuxBuilders\Script\Property;
+  use app\AuxBuilders\Script\Printer;
+  use app\AuxBuilders\Strings\StringBuilder;
+  use helpers\Helpers;
+
 
   class ViewBuilder{
 
+    private $json;
+    private $printer;
+
+    public function __construct($json) {
+        $json_file = file_get_contents($json);
+        $json_file = json_decode($json_file, true);
+        $this->json = $json_file;
+        $this->printer = new Printer();
+    }
+
     public function createViews(){
       $this->createHomeIndexPage();
-      $this->createProdutoIndexPage();
       $this->createBaseHtmlPage();
-      $this->createHeaderPage();
+      @$this->createHeaderPage();
       $this->createFooterPage();
     }
 
@@ -19,18 +36,14 @@
       $indexHtml = '<!DOCTYPE html>
       <html lang="pt-br">
           <head>
-          
               <meta charset="utf-8">
-      
           </head>
-      
           <body>
-              
-              <?php require_once __DIR__ . "\\\header.html" ?>
+              <?php require_once __DIR__ . "' . DIRECTORY_SEPARATOR . 'header.html" ?>
       
               <?php $this->viewContent() ?>
       
-              <?php require_once __DIR__ . "\\\footer.phtml" ?>
+              <?php require_once __DIR__ ."' . DIRECTORY_SEPARATOR  .'footer.phtml" ?>
       
               <script src="../../libs/js/jquery.min.js"></script>
               <script src="../../libs/js/bootstrap.min.js"></script>
@@ -56,7 +69,7 @@
                         <div class="col-md-4">
                             <select class="select-header">
                                 <option>** TABELAS **</option>';
-      foreach ($this->objects as $key => $object) {
+      foreach ($this->json['objects'] as $key => $object) {
           $html .= '<option>'.$object['name'].'</option>';
       }
       $html .= '</select>
@@ -84,7 +97,7 @@
       <head>
       </head>
       <body>
-        <h1> HELLO WORLD ! </h1>
+        <h1> MATHIAS ! </h1>
       </body>
       </html>';
       FileBuilder::buildPHPClassFileOrDir(
@@ -94,22 +107,6 @@
       );
     }    
     
-    public function createProdutoIndexPage(){
-      $indexHtml = '<html>
-      <head>
-      </head>
-      <body>
-        <?php foreach ($this->view->produto as $produto): ?>
-        <h1> <?php echo $produto->getDescricao(); ?> </h1>
-        <?php endforeach; ?>
-      </body>
-      </html>';
-      FileBuilder::buildPHPClassFileOrDir(
-        "../../project/app/view/produto/index", 
-        $indexHtml,
-        ".phtml"
-      );
-    }
 
   }
 

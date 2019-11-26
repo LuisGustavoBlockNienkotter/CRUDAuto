@@ -12,9 +12,6 @@
   use app\CreateView\ViewBuilder;
   use app\CreateControllers\CreatePublic\PublicBuilder;
 
-  ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
-  error_reporting(0); // Disable all errors.
-
   // ORDEM DAS PASTAS QUE SERÃO CRIADOS
   print_r("\n==============================================\n");
   print_r("-> EXTRAINDO INFORMAÇÕES DO SQL...\n");
@@ -30,7 +27,7 @@
   print_r("-> CRIANDO ARQUIVO DE ROTAS...\n");
   (new RouteBuilder('results.json'))->createRoutesFile();
   print_r("-> CRIANDO VIEWS...\n");
-  (new ViewBuilder())->createViews();
+  (new ViewBuilder('results.json'))->createViews();
   print_r("-> CRIANDO PASTA PÚBLICA...\n");
   (new PublicBuilder())->createPublic();
   print_r("-> ATUALIZANDO AUTOLOAD NA PASTA DO PROJETO...\n");

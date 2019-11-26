@@ -5,7 +5,9 @@
   class FileBuilder{
     
   private static function buildFolder($local){
-    mkdir($local, 0700);
+    if (!file_exists($local)){
+      mkdir($local, 0700);
+    }
   }
   public static function buildPHPClassFileOrDir($local, $conteudo, $extensao = ".php"){
       $explode = array_filter(explode("/", $local));
