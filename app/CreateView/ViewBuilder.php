@@ -29,6 +29,7 @@
       $this->createHomeIndexPage();
       $this->createHeaderPage();
       $this->createBaseHtmlPage();
+      @$this->createInsertPages();
       @$this->createObjectsPages();
     }
 
@@ -106,10 +107,10 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-md-12">
-                        <a href="" class="btn btn-primary">
-                            <span class="fa fa-plus" aria-hidden="true"></span>
-                            Incluir
-                        </a>
+                      <a href="' . $object['name'] .'/insert" class="btn btn-primary">
+                      <span class="fa fa-plus" aria-hidden="true"></span>
+                      Incluir
+                  </a>
                       </div>
                     </div>
                     <div class="table-responsive">
@@ -160,10 +161,7 @@
     public function createInsertPages()
     {
       foreach ($this->json['objects'] as $key => $object) {
-        $html = '<?'.
-                $this->createPhpUseControllers($object).
-                $this->createPhpGetAll($object).
-                '?>
+        $html = '
                 <html>'.
                 $this->createHeadFromHtml().
                 '<body>
@@ -171,7 +169,7 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-md-12">
-                        <a href="" class="btn btn-primary">
+                        <a href="' . $object['name'] .'/insert" class="btn btn-primary">
                             <span class="fa fa-plus" aria-hidden="true"></span>
                             Incluir
                         </a>
@@ -184,7 +182,7 @@
                   </body>
                 </html>';
               FileBuilder::buildPHPClassFileOrDir(
-                "../../project/app/view/".$object['name']."/inserir//", 
+                "../../project/app/view/".$object['name']."/insert", 
                 $html,
                 ".phtml"
               );
