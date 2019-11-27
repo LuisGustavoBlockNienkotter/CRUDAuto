@@ -91,8 +91,8 @@ class BuildDto
                 "\n".
                 $this->createStringParams($parameters).
                 "\n".
-                $this->createStringConstructor($parameters).
-                "\n".
+                // $this->createStringConstructor($parameters).
+                // "\n".
                 $this->createStringGettersSetters($parameters).
                 "\n".
                 '}'.

@@ -5,7 +5,7 @@ use app\conexao\Conexao;
 use app\interfaces\IDAO;
 use PDO;
 
-class RocketDao extends Conexao implements IDAO{
+class RocketDAO extends Conexao implements IDAO{
 	public function insert($object){
 		$stmt = $this->getPdo()->prepare("INSERT INTO rocket
 										(id, codigo, altura, largura, peso)
@@ -29,7 +29,11 @@ class RocketDao extends Conexao implements IDAO{
 			$query = $this->getPdo()->query("SELECT * FROM rocket;");
 			$array = array();
 			while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-				$rocket = new Rocket($result["id"],$result["codigo"],$result["altura"],$result["largura"],$result["peso"]);
+				$rocket = (new Rocket())->setId($result['id'])
+->setCodigo($result['codigo'])
+->setAltura($result['altura'])
+->setLargura($result['largura'])
+->setPeso($result['peso']);
 				array_push($array, $rocket);
 			}
 			return $array;

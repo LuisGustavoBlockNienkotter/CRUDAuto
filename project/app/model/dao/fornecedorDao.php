@@ -5,7 +5,7 @@ use app\conexao\Conexao;
 use app\interfaces\IDAO;
 use PDO;
 
-class FornecedorDao extends Conexao implements IDAO{
+class FornecedorDAO extends Conexao implements IDAO{
 	public function insert($object){
 		$stmt = $this->getPdo()->prepare("INSERT INTO fornecedor
 										(id, nome, cpf)
@@ -25,7 +25,9 @@ class FornecedorDao extends Conexao implements IDAO{
 			$query = $this->getPdo()->query("SELECT * FROM fornecedor;");
 			$array = array();
 			while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-				$fornecedor = new Fornecedor($result["id"],$result["nome"],$result["cpf"]);
+				$fornecedor = (new Fornecedor())->setId($result['id'])
+->setNome($result['nome'])
+->setCpf($result['cpf']);
 				array_push($array, $fornecedor);
 			}
 			return $array;

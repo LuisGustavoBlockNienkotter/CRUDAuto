@@ -27,9 +27,9 @@
 
     public function createViews(){
       $this->createHomeIndexPage();
-      // $this->createBaseHtmlPage();
       $this->createHeaderPage();
-      $this->createObjectsPages();
+      $this->createBaseHtmlPage();
+      @$this->createObjectsPages();
     }
 
     public function createBaseHtmlPage(){
@@ -39,7 +39,7 @@
               <meta charset="utf-8">
           </head>
           <body>
-              <?php require_once __DIR__ . "' . DIRECTORY_SEPARATOR . 'header.html" ?>
+              <?php require_once __DIR__ . "' . DIRECTORY_SEPARATOR . 'header.phtml" ?>
       
               <?php $this->viewContent() ?>
 
@@ -65,12 +65,12 @@
                             <span class="titulo-painel-adminitrativo"><a href="">Painel Administrativo</a></span>
                         </div>
                         <div class="col-md-4">
-                            <select class="select-header">
-                                <option>** TABELAS **</option>';
+                            <ul class="select-header">
+                                <li>** TABELAS **</li>';
       foreach ($this->json['objects'] as $key => $object) {
-          $html .= '<option>'.$object['name'].'</option>';
+          $html .= '<li><a href="/'.$object['name'].'">'.$object['name'].'</a></li>';
       }
-      $html .= '</select>
+      $html .= '</ul>
               </div>
           </div>
         </header>';
@@ -86,7 +86,6 @@
       <head>
       </head>
       <body>
-        <h1> MATHIAS ! </h1>
       </body>
       </html>';
       FileBuilder::buildPHPClassFileOrDir(
@@ -99,14 +98,11 @@
     public function createObjectsPages()
     {
       foreach ($this->json['objects'] as $key => $object) {
-        $html = '<?'.
-                $this->createPhpUseControllers($object).
-                $this->createPhpGetAll($object).
-                '?>
+        $html = '
                 <html>'.
                 $this->createHeadFromHtml().
                 '<body>
-                  <?php require_once __DIR__ . "\header.html" ?>
+                  <?php require_once __DIR__ . "'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .'header.phtml" ?>
                   <div class="container">
                     <div class="row">
                       <div class="col-md-12">
@@ -125,7 +121,9 @@
                           </thead>
                           <tbody>
                               <tr>
-                                <td> TESTE</td>
+                                <?php foreach ($this->view->'.$object['name'].' as $'.$object['name'].'): ?>
+                                <td> <?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?> </td>
+                                <td> <?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][1]).'(); ?> </td>
                                 <td class="acoes">
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -139,6 +137,7 @@
                                         </div>
                                     </div>
                                 </td>
+                                <?php endforeach; ?>
                               </tr>
                               <tr>
                                   <td colspan="3">Nenhum resultado encontrado</td>
@@ -150,7 +149,11 @@
                 </body>
               </html>';
               FileBuilder::buildPHPClassFileOrDir(
+<<<<<<< HEAD
                 "../../project/app/view/".$object['name']."/index//", 
+=======
+                "../../project/app/view/".$object['name'].'/index', 
+>>>>>>> a7284d07a08ce7b27cb62496613360f99dedbfa8
                 $html,
                 ".phtml"
               );

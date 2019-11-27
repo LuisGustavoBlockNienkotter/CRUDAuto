@@ -7,12 +7,6 @@ class Usuario {
 	private $login;
 	private $senha;
 
-	public function __construct ($id, $nome, $login, $senha){
-		$this->id = $id;
-		$this->nome = $nome;
-		$this->login = $login;
-		$this->senha = $senha;
-	}
 	public function getId(){
 		return $this->id;
 	}

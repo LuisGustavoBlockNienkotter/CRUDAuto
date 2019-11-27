@@ -5,7 +5,7 @@ use app\conexao\Conexao;
 use app\interfaces\IDAO;
 use PDO;
 
-class ProdutoDao extends Conexao implements IDAO{
+class ProdutoDAO extends Conexao implements IDAO{
 	public function insert($object){
 		$stmt = $this->getPdo()->prepare("INSERT INTO produto
 										(id, descricao, ncm, estoque)
@@ -27,7 +27,10 @@ class ProdutoDao extends Conexao implements IDAO{
 			$query = $this->getPdo()->query("SELECT * FROM produto;");
 			$array = array();
 			while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-				$produto = new Produto($result["id"],$result["descricao"],$result["ncm"],$result["estoque"]);
+				$produto = (new Produto())->setId($result['id'])
+->setDescricao($result['descricao'])
+->setNcm($result['ncm'])
+->setEstoque($result['estoque']);
 				array_push($array, $produto);
 			}
 			return $array;

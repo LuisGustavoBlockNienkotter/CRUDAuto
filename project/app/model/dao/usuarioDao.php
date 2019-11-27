@@ -5,7 +5,7 @@ use app\conexao\Conexao;
 use app\interfaces\IDAO;
 use PDO;
 
-class UsuarioDao extends Conexao implements IDAO{
+class UsuarioDAO extends Conexao implements IDAO{
 	public function insert($object){
 		$stmt = $this->getPdo()->prepare("INSERT INTO usuario
 										(id, nome, login, senha)
@@ -27,7 +27,10 @@ class UsuarioDao extends Conexao implements IDAO{
 			$query = $this->getPdo()->query("SELECT * FROM usuario;");
 			$array = array();
 			while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-				$usuario = new Usuario($result["id"],$result["nome"],$result["login"],$result["senha"]);
+				$usuario = (new Usuario())->setId($result['id'])
+->setNome($result['nome'])
+->setLogin($result['login'])
+->setSenha($result['senha']);
 				array_push($array, $usuario);
 			}
 			return $array;

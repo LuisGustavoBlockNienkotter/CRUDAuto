@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4f070c9e1d5ebfbe65375545932d6d6e
+class ComposerStaticInitd7c6041286ede4e798954d6483e46f5a
 {
     public static $prefixLengthsPsr4 = array (
         'c' => 
@@ -40,10 +40,10 @@ class ComposerStaticInit4f070c9e1d5ebfbe65375545932d6d6e
         'app\\model\\bo\\ProdutoBO' => __DIR__ . '/../..' . '/app/model/bo/ProdutoBO.php',
         'app\\model\\bo\\RocketBO' => __DIR__ . '/../..' . '/app/model/bo/RocketBO.php',
         'app\\model\\bo\\UsuarioBO' => __DIR__ . '/../..' . '/app/model/bo/UsuarioBO.php',
-        'app\\model\\dao\\FornecedorDao' => __DIR__ . '/../..' . '/app/model/dao/fornecedorDao.php',
-        'app\\model\\dao\\ProdutoDao' => __DIR__ . '/../..' . '/app/model/dao/produtoDao.php',
-        'app\\model\\dao\\RocketDao' => __DIR__ . '/../..' . '/app/model/dao/rocketDao.php',
-        'app\\model\\dao\\UsuarioDao' => __DIR__ . '/../..' . '/app/model/dao/usuarioDao.php',
+        'app\\model\\dao\\FornecedorDAO' => __DIR__ . '/../..' . '/app/model/dao/FornecedorDAO.php',
+        'app\\model\\dao\\ProdutoDAO' => __DIR__ . '/../..' . '/app/model/dao/ProdutoDAO.php',
+        'app\\model\\dao\\RocketDAO' => __DIR__ . '/../..' . '/app/model/dao/RocketDAO.php',
+        'app\\model\\dao\\UsuarioDAO' => __DIR__ . '/../..' . '/app/model/dao/UsuarioDAO.php',
         'app\\model\\dto\\Fornecedor' => __DIR__ . '/../..' . '/app/model/dto/fornecedor.php',
         'app\\model\\dto\\Produto' => __DIR__ . '/../..' . '/app/model/dto/produto.php',
         'app\\model\\dto\\Rocket' => __DIR__ . '/../..' . '/app/model/dto/rocket.php',
@@ -53,9 +53,9 @@ class ComposerStaticInit4f070c9e1d5ebfbe65375545932d6d6e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4f070c9e1d5ebfbe65375545932d6d6e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4f070c9e1d5ebfbe65375545932d6d6e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4f070c9e1d5ebfbe65375545932d6d6e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd7c6041286ede4e798954d6483e46f5a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd7c6041286ede4e798954d6483e46f5a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd7c6041286ede4e798954d6483e46f5a::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -8,13 +8,6 @@ class Rocket {
 	private $largura;
 	private $peso;
 
-	public function __construct ($id, $codigo, $altura, $largura, $peso){
-		$this->id = $id;
-		$this->codigo = $codigo;
-		$this->altura = $altura;
-		$this->largura = $largura;
-		$this->peso = $peso;
-	}
 	public function getId(){
 		return $this->id;
 	}
