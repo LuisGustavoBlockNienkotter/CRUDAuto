@@ -362,7 +362,7 @@ class BuildDao
 
 
             $str =  '<?php'."\n". $namespaces .
-                    'class '. ucfirst($value['name']). 'Dao extends Conexao implements IDAO{'."\n".
+                    'class '. ucfirst($value['name']). 'DAO extends Conexao implements IDAO{'."\n".
                     $this->createInsertFunctions($value).
                     $this->createGetAllFunctions($value).
                     $this->createUpdateFunction($value).
@@ -372,7 +372,7 @@ class BuildDao
                     '?>';
 
             FileBuilder::buildPHPClassFileOrDir(
-                "../../project/app/model/dao/" . $value['name'].'Dao', 
+                "../../project/app/model/dao/" . ucfirst($value['name']).'DAO', 
                 $str
             ); 
 

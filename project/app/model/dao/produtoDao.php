@@ -5,7 +5,7 @@ use app\conexao\Conexao;
 use app\interfaces\IDAO;
 use PDO;
 
-class ProdutoDao extends Conexao implements IDAO{
+class ProdutoDAO extends Conexao implements IDAO{
 	public function insert($object){
 		$stmt = $this->getPdo()->prepare("INSERT INTO produto
 										(id, descricao, ncm, estoque)
