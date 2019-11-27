@@ -107,7 +107,7 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-md-12">
-                      <a href="' . $object['name'] .'/insert" class="btn btn-primary">
+                      <a href="' . $object['name'] .'/cadastrar" class="btn btn-primary">
                       <span class="fa fa-plus" aria-hidden="true"></span>
                       Incluir
                   </a>
@@ -165,16 +165,7 @@
                 <html>'.
                 $this->createHeadFromHtml().
                 '<body>
-                  <?php require_once __DIR__ . "\header.html" ?>
                   <div class="container">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <a href="' . $object['name'] .'/insert" class="btn btn-primary">
-                            <span class="fa fa-plus" aria-hidden="true"></span>
-                            Incluir
-                        </a>
-                      </div>
-                    </div>
                     <div class="container-form">'.
                       $this->createFormForInsertPages($object).
                     '</div>
@@ -194,8 +185,9 @@
         $html = '<form method="POST" action="/'.$object['name'].'/insert">';
         foreach ($object['parameters'] as $key => $parameter) {
           $html .= '<label>'.$parameter.'</label>
-                    <input type="text name="'.$parameter.'" class="form-control">';
+                    <input type="text" name="'.$parameter.'" class="form-control">';
         }
+        $html .= '<input type="submit">'  ;         
         $html .= '</form>';
         return $html;
     }

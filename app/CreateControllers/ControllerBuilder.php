@@ -64,6 +64,12 @@
                   ->setBody($this->buildIndexMethodBody($classes[$i])))
 
                 ->addMember((new Method())
+                  ->setName('cadastrar')
+                  ->setVisibility('public')
+                  ->setBody("\$this->requestView('" . $classes[$i]["name"]. "/insert' , 'baseHtml');"))
+
+
+                ->addMember((new Method())
                   ->setName('insert')
                   ->setVisibility('public') 
                   ->addParameter((new Parameter())
