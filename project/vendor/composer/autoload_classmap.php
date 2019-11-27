@@ -25,8 +25,4 @@ return array(
     'app\\model\\dto\\Produto' => $baseDir . '/app/model/dto/produto.php',
     'app\\model\\dto\\Rocket' => $baseDir . '/app/model/dto/rocket.php',
     'app\\model\\dto\\Usuario' => $baseDir . '/app/model/dto/usuario.php',
-    'core\\AbsController' => $baseDir . '/core/AbsController.php',
-    'core\\ControllerUtil' => $baseDir . '/core/ControllerUtil.php',
-    'core\\Redirector' => $baseDir . '/core/Redirector.php',
-    'core\\Route' => $baseDir . '/core/Route.php',
 );
