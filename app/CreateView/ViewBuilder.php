@@ -150,12 +150,57 @@
                 </body>
               </html>';
               FileBuilder::buildPHPClassFileOrDir(
-                "../../project/app/view/index/".$object['name'].'/', 
+                "../../project/app/view/".$object['name']."/index//", 
                 $html,
                 ".phtml"
               );
       }
       
+    }
+
+    public function createInsertPages()
+    {
+      foreach ($this->json['objects'] as $key => $object) {
+        $html = '<?'.
+                $this->createPhpUseControllers($object).
+                $this->createPhpGetAll($object).
+                '?>
+                <html>'.
+                $this->createHeadFromHtml().
+                '<body>
+                  <?php require_once __DIR__ . "\header.html" ?>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <a href="" class="btn btn-primary">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                            Incluir
+                        </a>
+                      </div>
+                    </div>
+                    <div class="container-form">'.
+                      $this->createFormForInsertPages($object).
+                    '</div>
+                  </div>
+                  </body>
+                </html>';
+              FileBuilder::buildPHPClassFileOrDir(
+                "../../project/app/view/".$object['name']."/inserir//", 
+                $html,
+                ".phtml"
+              );
+      }
+    }
+
+    public function createFormForInsertPages($object)
+    {
+        $html = '<form method="POST" action="/'.$object['name'].'/insert">';
+        foreach ($object['parameters'] as $key => $parameter) {
+          $html .= '<label>'.$parameter.'</label>
+                    <input type="text name="'.$parameter.'" class="form-control">';
+        }
+        $html .= '</form>';
+        return $html;
     }
 
     public function createHeadFromHtml()
