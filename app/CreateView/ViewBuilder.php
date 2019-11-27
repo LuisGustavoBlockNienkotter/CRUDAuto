@@ -149,11 +149,7 @@
                 </body>
               </html>';
               FileBuilder::buildPHPClassFileOrDir(
-<<<<<<< HEAD
-                "../../project/app/view/".$object['name']."/index//", 
-=======
                 "../../project/app/view/".$object['name'].'/index', 
->>>>>>> a7284d07a08ce7b27cb62496613360f99dedbfa8
                 $html,
                 ".phtml"
               );
