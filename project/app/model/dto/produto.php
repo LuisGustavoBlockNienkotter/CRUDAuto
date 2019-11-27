@@ -7,12 +7,6 @@ class Produto {
 	private $ncm;
 	private $estoque;
 
-	public function __construct ($id, $descricao, $ncm, $estoque){
-		$this->id = $id;
-		$this->descricao = $descricao;
-		$this->ncm = $ncm;
-		$this->estoque = $estoque;
-	}
 	public function getId(){
 		return $this->id;
 	}

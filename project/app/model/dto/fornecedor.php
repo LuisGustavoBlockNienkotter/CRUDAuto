@@ -6,11 +6,6 @@ class Fornecedor {
 	private $nome;
 	private $cpf;
 
-	public function __construct ($id, $nome, $cpf){
-		$this->id = $id;
-		$this->nome = $nome;
-		$this->cpf = $cpf;
-	}
 	public function getId(){
 		return $this->id;
 	}
