@@ -240,6 +240,23 @@ class BuildDao
         return $function;
     }
 
+    private function createSetsFromObject($class){
+      $params = new StringBuilder();
+      for ($i = 0; $i < count($class["parameters"]); $i++){
+        $params->append('set');
+        $params->append(Helpers::strToUCFirst($class["parameters"][$i]));
+        $params->append('($result[\'' . $class["parameters"][$i] . '\'])'); 
+
+        if(count($class["parameters"])-1 === $i){
+          $params->append(";");
+        }else{
+          $params->append("\n");
+          $params->append("->");
+        }
+      }
+      return $params;
+    }
+
     private function createGetAllFunctions($object)
     {
         $function = "\t".'public function findAll(){'."\n".
@@ -247,8 +264,8 @@ class BuildDao
                             "\t"."\t"."\t".'$query = $this->getPdo()->query("SELECT * FROM '.$object['name'].';");'."\n".
                             "\t"."\t"."\t".'$array = array();'."\n".
                             "\t"."\t"."\t".'while ($result = $query->fetch(PDO::FETCH_ASSOC)) {'."\n".
-                                "\t"."\t"."\t"."\t".'$'.$object['name'].' = new '.ucfirst($object['name']).'('.
-                                $this->createResultsFromQuerys($object).');'."\n".
+                                "\t"."\t"."\t"."\t".'$'.$object['name'].' = (new '.ucfirst($object['name']).'())->'.
+                                $this->createSetsFromObject($object)."\n".
                                 "\t"."\t"."\t"."\t".'array_push($array, $'.$object['name'].');'."\n".
                             "\t"."\t"."\t".'}'."\n".
                             "\t"."\t"."\t".'return $array;'."\n".
