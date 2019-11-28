@@ -19,6 +19,9 @@ class FornecedorController extends AbsController{
 	public function cadastrar(){
 		$this->requestView('fornecedor/insert' , 'baseHtml');
 	}
+	public function visualizar($id){
+		$this->requestView('fornecedor/update' , 'baseHtml');
+	}
 	public function insert($request){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
@@ -49,10 +52,10 @@ class FornecedorController extends AbsController{
 	public function findById($id){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
-		$fornecedor = (new Fornecedor())->setId($request->post->id);
+		$fornecedor = (new Fornecedor())->setId($id);
 		$obj = $fornecedorBO->findById($fornecedor);
 		$this->view->fornecedor = $obj;
-		$this->requestView('fornecedor/findById', 'baseHtml');
+		$this->requestView('fornecedor/update', 'baseHtml');
 	}
 }
 ?>

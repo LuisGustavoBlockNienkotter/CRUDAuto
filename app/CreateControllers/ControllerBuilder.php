@@ -68,6 +68,12 @@
                   ->setName('cadastrar')
                   ->setVisibility('public')
                   ->setBody("\$this->requestView('" . $classes[$i]["name"]. "/insert' , 'baseHtml');"))
+               ->addMember((new Method())
+                  ->setName('visualizar')
+                  ->setVisibility('public')
+                    ->addParameter((new Parameter())
+                    ->setName('id'))
+                  ->setBody("\$this->requestView('" . $classes[$i]["name"]. "/update' , 'baseHtml');"))
 
 
                 ->addMember((new Method())
@@ -310,7 +316,7 @@
 
       $idParams->append('set');
       $idParams->append(Helpers::strToUCFirst($class["parameters"][0]));
-      $idParams->append("(\$request->post->" . Helpers::strToLoweredCase($class["parameters"][0]) . ")"); 
+      $idParams->append("(\$id)"); 
       $idParams->append(";");
 
       $body = new StringBuilder();
@@ -349,7 +355,7 @@
       $body->append('$this->requestView(\'');
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append("/");
-      $body->append("findById', ");
+      $body->append("update', ");
       $body->append("'baseHtml');");
       return $body;
     }

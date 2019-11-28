@@ -29,8 +29,9 @@
       $this->createHomeIndexPage();
       $this->createHeaderPage();
       $this->createBaseHtmlPage();
-      $this->createInsertPages();
-      $this->createObjectsPages();
+      @$this->createInsertPages();
+      @$this->createObjectsPages();
+      $this->createUpdatePages();
     }
 
     public function createBaseHtmlPage(){
@@ -127,7 +128,7 @@
                                 <td> <?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][1]).'(); ?> </td>
                                 <td class="acoes">
                                     <div>
-                                      <a href="" id="botao-alterar" class="btn btn-primary">Alterar</a>
+                                      <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/findById" id="botao-alterar" class="btn btn-primary">Alterar</a>
                                     </div>
                                     <div>
                                       <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/delete" id="botao-excluir" class="btn btn-danger">Excluir</a>
@@ -190,31 +191,20 @@
     public function createUpdatePages()
     {
       foreach ($this->json['objects'] as $key => $object) {
-        $html = '<?'.
-                $this->createPhpUseControllers($object).
-                $this->createPhpGetAll($object).
-                '?>
-                <html>'.
-                $this->createHeadFromHtml().
-                '<body>
-                  <?php require_once __DIR__ . "\header.html" ?>
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <a href="" class="btn btn-primary">
-                            <span class="fa fa-plus" aria-hidden="true"></span>
-                            Incluir
-                        </a>
-                      </div>
-                    </div>
-                    <div class="container-form">'.
-                      $this->createFormForInsertPages($object).
-                    '</div>
-                  </div>
-                  </body>
-                </html>';
+        $html = '
+<html>'.
+$this->createHeadFromHtml().
+'<body>
+  <div class="container">
+    <div class="container-form">'.
+      $this->createFormForUpdatePages($object).
+    '</div>
+  </div>
+  </body>
+</html>';
+                ;      
               FileBuilder::buildPHPClassFileOrDir(
-                "../../project/app/view/".$object['name']."/inserir//", 
+                "../../project/app/view/".$object['name']."/update", 
                 $html,
                 ".phtml"
               );
@@ -223,12 +213,15 @@
 
     public function createFormForUpdatePages($object)
     {
-        $html = '<form method="POST" action="/'.$object['name'].'/insert">';
+        $html = '<form method="POST" action="/'.$object['name'].'/<?php echo $this->view->'.$object['name'].'[0]->get'.ucfirst($object['parameters'][0]).'(); ?>/update">';
         foreach ($object['parameters'] as $key => $parameter) {
-          $html .= '<label>'.$parameter.'</label>
-                    <input type="text name="'.$parameter.'" class="form-control" value="">';
+          $html .= '
+  <label>'.ucfirst($parameter).'</label>
+  <input type="text" name="'.$parameter.'" class="form-control" value="<?php echo $this->view->'.$object['name'].'[0]->get'.ucfirst($parameter).'(); ?>">';
         }
-        $html .= '</form>';
+        $html .= '<input type="submit">'  ;      
+        $html .= '
+</form>';
         return $html;
     }
 

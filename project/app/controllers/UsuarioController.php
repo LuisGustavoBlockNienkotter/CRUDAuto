@@ -19,6 +19,9 @@ class UsuarioController extends AbsController{
 	public function cadastrar(){
 		$this->requestView('usuario/insert' , 'baseHtml');
 	}
+	public function visualizar($id){
+		$this->requestView('usuario/update' , 'baseHtml');
+	}
 	public function insert($request){
 		$usuarioDAO = new UsuarioDAO();
 		$usuarioBO = new UsuarioBO($usuarioDAO);
@@ -51,10 +54,10 @@ class UsuarioController extends AbsController{
 	public function findById($id){
 		$usuarioDAO = new UsuarioDAO();
 		$usuarioBO = new UsuarioBO($usuarioDAO);
-		$usuario = (new Usuario())->setId($request->post->id);
+		$usuario = (new Usuario())->setId($id);
 		$obj = $usuarioBO->findById($usuario);
 		$this->view->usuario = $obj;
-		$this->requestView('usuario/findById', 'baseHtml');
+		$this->requestView('usuario/update', 'baseHtml');
 	}
 }
 ?>

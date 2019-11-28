@@ -98,7 +98,7 @@ class BuildDao
         $findbyid = new StringBuilder();
         $findbyid->append("public function findById(\$objeto){");
         $findbyid->append("\n");
-        $findbyid->append("\$this->getPdo()->prepare(");
+        $findbyid->append("\$stmt = \$this->getPdo()->prepare(");
         $findbyid->append("\"SELECT * FROM ");
         $findbyid->append($object['name']);
         $findbyid->append(" WHERE ");
@@ -125,9 +125,9 @@ class BuildDao
         $findbyid->append("\n");
         $findbyid->append("\$stmt->execute();");
         $findbyid->append("\n");
-        $findbyid->append("while (\$obj = \$stmt->fetch(PDO::FETCH_ASSC)){");
+        $findbyid->append("while (\$obj = \$stmt->fetch(PDO::FETCH_ASSOC)){");
         $findbyid->append("\n");
-        $findbyid->append("\$r = (new ");
+        $findbyid->append("\$r[] = (new ");
         $findbyid->append(Helpers::strToUCFirst($object['name']));
         $findbyid->append("())->");  
         $findbyid->append("\n"); 
@@ -138,7 +138,7 @@ class BuildDao
         $params->append('set');
         $params->append(Helpers::strToUCFirst($object["parameters"][$i]));
         $params->append("(");
-        $params->append("\$obj['" . $object["name"] . "_" . $object["parameters"][$i]."'])"); 
+        $params->append("\$obj['". $object["parameters"][$i]."'])"); 
         if(count($object["parameters"])-1 === $i){
           $params->append(";");
         }else{
@@ -151,7 +151,7 @@ class BuildDao
         $findbyid->append("\n");  
         $findbyid->append("}");  
         $findbyid->append("\n");    
-        $findbyid->append("return \$obj;");  
+        $findbyid->append("return \$r;");  
         $findbyid->append("\n");
         $findbyid->append("}");
         $findbyid->append("\n");

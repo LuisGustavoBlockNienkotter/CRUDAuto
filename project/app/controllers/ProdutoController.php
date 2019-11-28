@@ -19,6 +19,9 @@ class ProdutoController extends AbsController{
 	public function cadastrar(){
 		$this->requestView('produto/insert' , 'baseHtml');
 	}
+	public function visualizar($id){
+		$this->requestView('produto/update' , 'baseHtml');
+	}
 	public function insert($request){
 		$produtoDAO = new ProdutoDAO();
 		$produtoBO = new ProdutoBO($produtoDAO);
@@ -51,10 +54,10 @@ class ProdutoController extends AbsController{
 	public function findById($id){
 		$produtoDAO = new ProdutoDAO();
 		$produtoBO = new ProdutoBO($produtoDAO);
-		$produto = (new Produto())->setId($request->post->id);
+		$produto = (new Produto())->setId($id);
 		$obj = $produtoBO->findById($produto);
 		$this->view->produto = $obj;
-		$this->requestView('produto/findById', 'baseHtml');
+		$this->requestView('produto/update', 'baseHtml');
 	}
 }
 ?>

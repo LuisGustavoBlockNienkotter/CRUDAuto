@@ -72,18 +72,18 @@ class ProdutoDAO extends Conexao implements IDAO{
 		}
 	}
 	public function findById($objeto){
-		$this->getPdo()->prepare("SELECT * FROM produto WHERE id = :id;");
+		$stmt = $this->getPdo()->prepare("SELECT * FROM produto WHERE id = :id;");
 		$stmt->bindParam(':id', $id);
 		$id = $objeto->getId(); 
 		$stmt->execute();
-		while ($obj = $stmt->fetch(PDO::FETCH_ASSC)){
-			$r = (new Produto())->
-			setId($obj['produto_id'])
-			->setDescricao($obj['produto_descricao'])
-			->setNcm($obj['produto_ncm'])
-			->setEstoque($obj['produto_estoque']);
+		while ($obj = $stmt->fetch(PDO::FETCH_ASSOC)){
+			$r[] = (new Produto())->
+			setId($obj['id'])
+			->setDescricao($obj['descricao'])
+			->setNcm($obj['ncm'])
+			->setEstoque($obj['estoque']);
 		}
-		return $obj;
+		return $r;
 	}
 	}
 ?>

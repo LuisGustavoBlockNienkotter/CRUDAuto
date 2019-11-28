@@ -43,7 +43,7 @@
       
       ';
       $classes = $this->json['objects'];
-      $methods = ["findAll", "update", "insert", "delete", "findById", "cadastrar"];
+      $methods = ["findAll", "update", "insert", "delete", "findById", "cadastrar", "visualizar"];
       $routes = new StringBuilder();
       $routes->append("<?php");
       $routes->append("\n");

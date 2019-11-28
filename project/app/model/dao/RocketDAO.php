@@ -77,19 +77,19 @@ class RocketDAO extends Conexao implements IDAO{
 		}
 	}
 	public function findById($objeto){
-		$this->getPdo()->prepare("SELECT * FROM rocket WHERE id = :id;");
+		$stmt = $this->getPdo()->prepare("SELECT * FROM rocket WHERE id = :id;");
 		$stmt->bindParam(':id', $id);
 		$id = $objeto->getId(); 
 		$stmt->execute();
-		while ($obj = $stmt->fetch(PDO::FETCH_ASSC)){
-			$r = (new Rocket())->
-			setId($obj['rocket_id'])
-			->setCodigo($obj['rocket_codigo'])
-			->setAltura($obj['rocket_altura'])
-			->setLargura($obj['rocket_largura'])
-			->setPeso($obj['rocket_peso']);
+		while ($obj = $stmt->fetch(PDO::FETCH_ASSOC)){
+			$r[] = (new Rocket())->
+			setId($obj['id'])
+			->setCodigo($obj['codigo'])
+			->setAltura($obj['altura'])
+			->setLargura($obj['largura'])
+			->setPeso($obj['peso']);
 		}
-		return $obj;
+		return $r;
 	}
 	}
 ?>

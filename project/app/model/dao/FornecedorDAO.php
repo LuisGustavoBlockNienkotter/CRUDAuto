@@ -67,17 +67,17 @@ class FornecedorDAO extends Conexao implements IDAO{
 		}
 	}
 	public function findById($objeto){
-		$this->getPdo()->prepare("SELECT * FROM fornecedor WHERE id = :id;");
+		$stmt = $this->getPdo()->prepare("SELECT * FROM fornecedor WHERE id = :id;");
 		$stmt->bindParam(':id', $id);
 		$id = $objeto->getId(); 
 		$stmt->execute();
-		while ($obj = $stmt->fetch(PDO::FETCH_ASSC)){
-			$r = (new Fornecedor())->
-			setId($obj['fornecedor_id'])
-			->setNome($obj['fornecedor_nome'])
-			->setCpf($obj['fornecedor_cpf']);
+		while ($obj = $stmt->fetch(PDO::FETCH_ASSOC)){
+			$r[] = (new Fornecedor())->
+			setId($obj['id'])
+			->setNome($obj['nome'])
+			->setCpf($obj['cpf']);
 		}
-		return $obj;
+		return $r;
 	}
 	}
 ?>

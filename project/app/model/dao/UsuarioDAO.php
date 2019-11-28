@@ -72,18 +72,18 @@ class UsuarioDAO extends Conexao implements IDAO{
 		}
 	}
 	public function findById($objeto){
-		$this->getPdo()->prepare("SELECT * FROM usuario WHERE id = :id;");
+		$stmt = $this->getPdo()->prepare("SELECT * FROM usuario WHERE id = :id;");
 		$stmt->bindParam(':id', $id);
 		$id = $objeto->getId(); 
 		$stmt->execute();
-		while ($obj = $stmt->fetch(PDO::FETCH_ASSC)){
-			$r = (new Usuario())->
-			setId($obj['usuario_id'])
-			->setNome($obj['usuario_nome'])
-			->setLogin($obj['usuario_login'])
-			->setSenha($obj['usuario_senha']);
+		while ($obj = $stmt->fetch(PDO::FETCH_ASSOC)){
+			$r[] = (new Usuario())->
+			setId($obj['id'])
+			->setNome($obj['nome'])
+			->setLogin($obj['login'])
+			->setSenha($obj['senha']);
 		}
-		return $obj;
+		return $r;
 	}
 	}
 ?>

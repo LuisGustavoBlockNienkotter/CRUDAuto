@@ -19,6 +19,9 @@ class RocketController extends AbsController{
 	public function cadastrar(){
 		$this->requestView('rocket/insert' , 'baseHtml');
 	}
+	public function visualizar($id){
+		$this->requestView('rocket/update' , 'baseHtml');
+	}
 	public function insert($request){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);
@@ -53,10 +56,10 @@ class RocketController extends AbsController{
 	public function findById($id){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);
-		$rocket = (new Rocket())->setId($request->post->id);
+		$rocket = (new Rocket())->setId($id);
 		$obj = $rocketBO->findById($rocket);
 		$this->view->rocket = $obj;
-		$this->requestView('rocket/findById', 'baseHtml');
+		$this->requestView('rocket/update', 'baseHtml');
 	}
 }
 ?>

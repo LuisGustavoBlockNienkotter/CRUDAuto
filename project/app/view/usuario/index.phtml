@@ -32,7 +32,7 @@
                                 <td> <?php echo $usuario->getNome(); ?> </td>
                                 <td class="acoes">
                                     <div>
-                                      <a href="" id="botao-alterar" class="btn btn-primary">Alterar</a>
+                                      <a href="usuario/<?php echo $usuario->getId(); ?>/findById" id="botao-alterar" class="btn btn-primary">Alterar</a>
                                     </div>
                                     <div>
                                       <a href="usuario/<?php echo $usuario->getId(); ?>/delete" id="botao-excluir" class="btn btn-danger">Excluir</a>
