@@ -33,3 +33,5 @@ create table rocket (
   peso float not null,
   primary key (id)
 );
+
+insert

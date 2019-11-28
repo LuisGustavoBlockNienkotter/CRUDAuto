@@ -39,18 +39,20 @@
       <html lang="pt-br">
           <head>
               <meta charset="utf-8">
+              <script src="../../libs/js/jquery.min.js"></script>
+              <script src="../../libs/js/bootstrap.min.js"></script>
+              <link rel="stylesheet" href="../../libs/mysheets/style.css">
+              <link rel="stylesheet" href="../../libs/fonts/material-icon.css">
+              <link rel="stylesheet" href="../../libs/stylesheets/bootstrap.min.css">
+              <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+              <link rel="stylesheet" href="custom.css">
           </head>
           <body>
               <?php require_once __DIR__ . "' . DIRECTORY_SEPARATOR . 'header.phtml" ?>
       
               <?php $this->viewContent() ?>
 
-              <script src="../../libs/js/jquery.min.js"></script>
-              <script src="../../libs/js/bootstrap.min.js"></script>
-              <link rel="stylesheet" href="../../libs/mysheets/style.css">
-              <link rel="stylesheet" href="../../libs/fonts/material-icon.css">
-              <link rel="stylesheet" href="../../libs/stylesheets/bootstrap.min.css">
-      
+              
           </body>
       </html>';
       FileBuilder::buildPHPClassFileOrDir(
@@ -64,15 +66,14 @@
       $html = '<header class="objects-header">
                     <div class="row">
                         <div class="col-md-2 linha-header text-center">
-                            <span class="titulo-painel-adminitrativo"><a href="">Painel Administrativo</a></span>
+                            <span class="titulo-painel-adminitrativo"><a href="/">Painel Administrativo</a></span>
                         </div>
                         <div class="col-md-4">
-                            <ul class="select-header">
-                                <li>** TABELAS **</li>';
+                        <nav class="navbar">';
       foreach ($this->json['objects'] as $key => $object) {
-          $html .= '<li><a href="/'.$object['name'].'">'.$object['name'].'</a></li>';
+          $html .= '<a href="/'.$object['name'].'" class="btn btn-primary">'.$object['name'].'</a>';
       }
-      $html .= '</ul>
+      $html .= '</nav>
               </div>
           </div>
         </header>';
@@ -101,9 +102,6 @@
     {
       foreach ($this->json['objects'] as $key => $object) {
         $html = '
-                <html>'.
-                $this->createHeadFromHtml().
-                '<body>
                   <?php require_once __DIR__ . "'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .'header.phtml" ?>
                   <div class="container">
                     <div class="row">
@@ -122,29 +120,24 @@
                               </tr>
                           </thead>
                           <tbody>
-                              <tr>
-                                <?php foreach ($this->view->'.$object['name'].' as $'.$object['name'].'): ?>
-                                <td> <?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?> </td>
-                                <td> <?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][1]).'(); ?> </td>
-                                <td class="acoes">
-                                    <div>
-                                      <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/findById" id="botao-alterar" class="btn btn-primary">Alterar</a>
-                                    </div>
-                                    <div>
-                                      <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/delete" id="botao-excluir" class="btn btn-danger">Excluir</a>
-                                    </div>
-                                </td>
-                                <?php endforeach; ?>
-                              </tr>
-                              <tr>
-                                  <td colspan="3">Nenhum resultado encontrado</td>
-                              </tr>
+                              <?php foreach ($this->view->'.$object['name'].' as $'.$object['name'].'): ?>
+                                <tr>
+                                  <th> <?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?> </th>
+                                  <th> <?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][1]).'(); ?> </th>
+                                  <th class="acoes">
+                                      <div>
+                                        <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/findById" id="botao-alterar" class="btn btn-primary">Alterar</a>
+                                      </div>
+                                      <div>
+                                        <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/delete" id="botao-excluir" class="btn btn-danger">Excluir</a>
+                                      </div>
+                                  </th>
+                                </tr>
+                              <?php endforeach; ?>
                           </tbody>
                       </table>
                   </div>
-                  </div>
-                </body>
-              </html>';
+                  </div>';
               FileBuilder::buildPHPClassFileOrDir(
                 "../../project/app/view/".$object['name'].'/index', 
                 $html,
@@ -234,7 +227,8 @@ $this->createHeadFromHtml().
                 <link rel="stylesheet" href="../../libs/mysheets/style.css">
                 <link rel="stylesheet" href="../../libs/fonts/material-icon.css">
                 <link rel="stylesheet" href="../../libs/stylesheets/bootstrap.min.css">
-                <link rel="stylesheet" href="custom.css">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+                <link rel="stylesheet" href="../custom.css">
               </head>';
       return $html;
     }
