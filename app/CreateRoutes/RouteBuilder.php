@@ -43,7 +43,7 @@
       
       ';
       $classes = $this->json['objects'];
-      $methods = ["findAll", "update", "insert", "delete", "findById"];
+      $methods = ["findAll", "update", "insert", "delete", "findById", "cadastrar"];
       $routes = new StringBuilder();
       $routes->append("<?php");
       $routes->append("\n");
@@ -59,7 +59,7 @@
         $class = $classes[$i];
         for($j = 0; $j < count($methods); $j++){
           $routes->append("\$routes[] = ['/" . Helpers::strToLoweredCase($class["name"]));
-          if($methods[$j] != 'findAll' && $methods[$j] != 'insert'){
+          if($methods[$j] != 'findAll' && $methods[$j] != 'insert' && $methods[$j] != 'cadastrar'){
             $routes->append("/");
             $routes->append("{");
             $routes->append(Helpers::strToLoweredCase($class["parameters"][0]));
@@ -67,8 +67,8 @@
             $routes->append("/");
             $routes->append($methods[$j]);
           }
-          if($methods[$j] == 'insert'){
-            $routes->append('/insert');
+          if($methods[$j] == 'insert' || $methods[$j] == 'cadastrar'){
+            $routes->append('/' . $methods[$j]);
           }
           $routes->append("', '");
           $routes->append(Helpers::strToControllerName($class["name"]));

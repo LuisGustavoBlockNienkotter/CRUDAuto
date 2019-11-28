@@ -15,6 +15,9 @@ class RocketController extends AbsController{
 		$this->view->rocket = $obj;
 		$this->requestView('rocket/index', 'baseHtml');
 	}
+	public function cadastrar(){
+		$this->requestView('rocket/insert' , 'baseHtml');
+	}
 	public function insert($request){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);

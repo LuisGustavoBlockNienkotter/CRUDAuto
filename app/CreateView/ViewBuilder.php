@@ -29,7 +29,8 @@
       $this->createHomeIndexPage();
       $this->createHeaderPage();
       $this->createBaseHtmlPage();
-      @$this->createObjectsPages();
+      $this->createInsertPages();
+      $this->createObjectsPages();
     }
 
     public function createBaseHtmlPage(){
@@ -106,10 +107,10 @@
                   <div class="container">
                     <div class="row">
                       <div class="col-md-12">
-                        <a href="" class="btn btn-primary">
-                            <span class="fa fa-plus" aria-hidden="true"></span>
-                            Incluir
-                        </a>
+                      <a href="' . $object['name'] .'/cadastrar" class="btn btn-primary">
+                      <span class="fa fa-plus" aria-hidden="true"></span>
+                      Incluir
+                  </a>
                       </div>
                     </div>
                     <div class="table-responsive">
@@ -144,7 +145,7 @@
                 </body>
               </html>';
               FileBuilder::buildPHPClassFileOrDir(
-                "../../project/app/view/".$object['name']."/index//", 
+                "../../project/app/view/".$object['name'].'/index', 
                 $html,
                 ".phtml"
               );
@@ -155,23 +156,11 @@
     public function createInsertPages()
     {
       foreach ($this->json['objects'] as $key => $object) {
-        $html = '<?'.
-                $this->createPhpUseControllers($object).
-                $this->createPhpGetAll($object).
-                '?>
+        $html = '
                 <html>'.
                 $this->createHeadFromHtml().
                 '<body>
-                  <?php require_once __DIR__ . "\header.html" ?>
                   <div class="container">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <a href="" class="btn btn-primary">
-                            <span class="fa fa-plus" aria-hidden="true"></span>
-                            Incluir
-                        </a>
-                      </div>
-                    </div>
                     <div class="container-form">'.
                       $this->createFormForInsertPages($object).
                     '</div>
@@ -179,7 +168,7 @@
                   </body>
                 </html>';
               FileBuilder::buildPHPClassFileOrDir(
-                "../../project/app/view/".$object['name']."/inserir//", 
+                "../../project/app/view/".$object['name']."/insert", 
                 $html,
                 ".phtml"
               );
@@ -191,8 +180,9 @@
         $html = '<form method="POST" action="/'.$object['name'].'/insert">';
         foreach ($object['parameters'] as $key => $parameter) {
           $html .= '<label>'.$parameter.'</label>
-                    <input type="text name="'.$parameter.'" class="form-control">';
+                    <input type="text" name="'.$parameter.'" class="form-control">';
         }
+        $html .= '<input type="submit">'  ;         
         $html .= '</form>';
         return $html;
     }

@@ -15,6 +15,9 @@ class UsuarioController extends AbsController{
 		$this->view->usuario = $obj;
 		$this->requestView('usuario/index', 'baseHtml');
 	}
+	public function cadastrar(){
+		$this->requestView('usuario/insert' , 'baseHtml');
+	}
 	public function insert($request){
 		$usuarioDAO = new UsuarioDAO();
 		$usuarioBO = new UsuarioBO($usuarioDAO);

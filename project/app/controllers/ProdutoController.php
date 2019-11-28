@@ -15,6 +15,9 @@ class ProdutoController extends AbsController{
 		$this->view->produto = $obj;
 		$this->requestView('produto/index', 'baseHtml');
 	}
+	public function cadastrar(){
+		$this->requestView('produto/insert' , 'baseHtml');
+	}
 	public function insert($request){
 		$produtoDAO = new ProdutoDAO();
 		$produtoBO = new ProdutoBO($produtoDAO);

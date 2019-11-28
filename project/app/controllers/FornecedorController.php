@@ -15,6 +15,9 @@ class FornecedorController extends AbsController{
 		$this->view->fornecedor = $obj;
 		$this->requestView('fornecedor/index', 'baseHtml');
 	}
+	public function cadastrar(){
+		$this->requestView('fornecedor/insert' , 'baseHtml');
+	}
 	public function insert($request){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
