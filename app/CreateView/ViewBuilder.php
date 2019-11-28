@@ -100,38 +100,58 @@
     
     public function createObjectsPages()
     {
+
       foreach ($this->json['objects'] as $key => $object) {
+        $tableHeader = '';
+        foreach($object['parameters'] as $param){
+          $tableHeader .= '<th>';
+          $tableHeader .= ucfirst($param);
+          $tableHeader .= '</th>';
+        }
+        $tableContent = '';
+        foreach ($object['parameters'] as $content){
+          $tableContent .= '<td align="center" style="vertical-align: middle;">';
+          $tableContent .= '<?php echo $';
+          $tableContent .= $object['name'];
+          $tableContent .= '->get';
+          $tableContent .= $content;
+          $tableContent .= '(); ?> </td>';
+        }
+
+        $tableHeader .= '<th> Ações </th>';
         $html = '
                   <?php require_once __DIR__ . "'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .'header.phtml" ?>
-                  <div class="container">
-                    <div class="row">
+
+                    <div class="table-responsive">
+
+                    
+                    <div style="margin-top: 20px" align="right" class="container">
+                    <div  class="row">
                       <div class="col-md-12">
-                      <a href="' . $object['name'] .'/cadastrar" class="btn btn-primary">
+                      <a href="' . $object['name'] .'/cadastrar" class="btn btn-success">
                       <span class="fa fa-plus" aria-hidden="true"></span>
                       Incluir
-                  </a>
+                      </a>
                       </div>
                     </div>
-                    <div class="table-responsive">
-                      <table class="table table-striped tabela-consulta">
+                      <table style="margin-top: 10px" class="table table-striped tabela-consulta">
                           <thead>
-                              <tr>
-                                  <th><?php echo "'.$object['name'].'"; ?></th>
+                              <tr align="center">
+                                  ' .  $tableHeader . '
                               </tr>
                           </thead>
                           <tbody>
                               <?php foreach ($this->view->'.$object['name'].' as $'.$object['name'].'): ?>
                                 <tr>
-                                  <th> <?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?> </th>
-                                  <th> <?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][1]).'(); ?> </th>
-                                  <th class="acoes">
-                                      <div>
+                                  ' . $tableContent . '
+                                  <td align="center" class="actions">
+                                      <div style="margin-bottom: 5px;">
                                         <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/findById" id="botao-alterar" class="btn btn-primary">Alterar</a>
                                       </div>
                                       <div>
                                         <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/delete" id="botao-excluir" class="btn btn-danger">Excluir</a>
                                       </div>
-                                  </th>
+                                  </td>
                                 </tr>
                               <?php endforeach; ?>
                           </tbody>
@@ -173,10 +193,12 @@
     {
         $html = '<form method="POST" action="/'.$object['name'].'/insert">';
         foreach ($object['parameters'] as $key => $parameter) {
-          $html .= '<label>'.$parameter.'</label>
+          $html .= '  <div class="form-group">';
+          $html .= '<label>'.ucfirst($parameter).'</label>
                     <input type="text" name="'.$parameter.'" class="form-control">';
+          $html .= '</div>';
         }
-        $html .= '<input type="submit">'  ;         
+        $html .= '<button type="submit" class="btn btn-primary">Salvar</button>'  ;         
         $html .= '</form>';
         return $html;
     }
@@ -208,11 +230,13 @@ $this->createHeadFromHtml().
     {
         $html = '<form method="POST" action="/'.$object['name'].'/<?php echo $this->view->'.$object['name'].'[0]->get'.ucfirst($object['parameters'][0]).'(); ?>/update">';
         foreach ($object['parameters'] as $key => $parameter) {
+          $html .= '  <div class="form-group">';
           $html .= '
   <label>'.ucfirst($parameter).'</label>
   <input type="text" name="'.$parameter.'" class="form-control" value="<?php echo $this->view->'.$object['name'].'[0]->get'.ucfirst($parameter).'(); ?>">';
         }
-        $html .= '<input type="submit">'  ;      
+        $html .= '  </div>';
+        $html .= '<button type="submit" class="btn btn-primary">Salvar</button>'  ;      
         $html .= '
 </form>';
         return $html;

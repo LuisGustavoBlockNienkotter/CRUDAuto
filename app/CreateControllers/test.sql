@@ -10,5 +10,11 @@ create table usuario (
   primary key(id)
 );
 
+create table produto (
+  id int not null auto_increment,
+  descricao varchar(50) not null,
+  ncm varchar(50) not null,
+  estoque int not null,
+  primary key(id)
+);
 
-insert

@@ -1,0 +1,39 @@
+
+                  <?php require_once __DIR__ . "\..\header.phtml" ?>
+
+                    <div class="table-responsive">
+
+                    
+                    <div style="margin-top: 20px" align="right" class="container">
+                    <div  class="row">
+                      <div class="col-md-12">
+                      <a href="usuario/cadastrar" class="btn btn-success">
+                      <span class="fa fa-plus" aria-hidden="true"></span>
+                      Incluir
+                      </a>
+                      </div>
+                    </div>
+                      <table style="margin-top: 10px" class="table table-striped tabela-consulta">
+                          <thead>
+                              <tr align="center">
+                                  <th>Id</th><th>Nome</th><th>Login</th><th>Senha</th><th> Ações </th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <?php foreach ($this->view->usuario as $usuario): ?>
+                                <tr>
+                                  <td align="center" style="vertical-align: middle;"><?php echo $usuario->getid(); ?> </td><td align="center" style="vertical-align: middle;"><?php echo $usuario->getnome(); ?> </td><td align="center" style="vertical-align: middle;"><?php echo $usuario->getlogin(); ?> </td><td align="center" style="vertical-align: middle;"><?php echo $usuario->getsenha(); ?> </td>
+                                  <td align="center" class="actions">
+                                      <div style="margin-bottom: 5px;">
+                                        <a href="usuario/<?php echo $usuario->getId(); ?>/findById" id="botao-alterar" class="btn btn-primary">Alterar</a>
+                                      </div>
+                                      <div>
+                                        <a href="usuario/<?php echo $usuario->getId(); ?>/delete" id="botao-excluir" class="btn btn-danger">Excluir</a>
+                                      </div>
+                                  </td>
+                                </tr>
+                              <?php endforeach; ?>
+                          </tbody>
+                      </table>
+                  </div>
+                  </div>
