@@ -260,7 +260,7 @@
 
       $idParams->append('set');
       $idParams->append(Helpers::strToUCFirst($class["parameters"][0]));
-      $idParams->append("(\$request->post->" . Helpers::strToLoweredCase($class["parameters"][0]) . ")"); 
+      $idParams->append("(\$id)"); 
       $idParams->append(";");
       /* Constrói corpo da função */ 
       $body = new StringBuilder();
@@ -288,18 +288,16 @@
       $body->append(Helpers::strToBOName($class["name"]));
       $body->append("->findById($");
       $body->append(Helpers::strToLoweredCase($class["name"]));
-      $body->append(");");
+      $body->append(")[0];");
       $body->append("\n");
       $body->append("\$obj");
-      $body->append(" = (new ");
-      $body->append(Helpers::strToUCFirst($class["name"]));
-      $body->append("())->");
+      $body->append("->");
       $body->append($params);
       $body->append("\n");
       $body->append("$");
       $body->append(Helpers::strToBOName($class["name"]));
       $body->append("->update($");
-      $body->append(Helpers::strToLoweredCase($class["name"]));
+      $body->append("obj");
       $body->append(");");
       $body->append("\n");
       $body->append('$this->requestView(\'');
