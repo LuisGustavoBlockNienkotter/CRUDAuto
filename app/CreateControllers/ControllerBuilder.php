@@ -54,6 +54,7 @@
 
                 ->setNamespace('app\controllers')
                 ->addUse('core\AbsController')
+                ->addUse('core\Redirector')
                 ->addUse('app\model\dao\\' . Helpers::strToDAOName($classes[$i]["name"], true))
                 ->addUse('app\model\bo\\'. Helpers::strToBOName($classes[$i]["name"], true))
                 ->addUse('app\model\dto\\'. Helpers::strToUCFirst(Helpers::strToLoweredCase($classes[$i]["name"])))
@@ -197,7 +198,7 @@
       $idParams = new StringBuilder();
       $idParams->append('set');
       $idParams->append(Helpers::strToUCFirst($class["parameters"][0]));
-      $idParams->append("(\$request->post->" . Helpers::strToLoweredCase($class["parameters"][0]) . ")"); 
+      $idParams->append("(\$id)"); 
       $idParams->append(";");
       /* Constrói corpo da função */ 
       $body = new StringBuilder();
@@ -226,11 +227,9 @@
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
       $body->append("\n");
-      $body->append('$this->requestView(\'');
+      $body->append('Redirector::toRoute(\'/');
       $body->append(Helpers::strToLoweredCase($class["name"]));
-      $body->append("/");
-      $body->append("delete', ");
-      $body->append("'baseHtml');");
+      $body->append("');");
       return $body;
     }
 

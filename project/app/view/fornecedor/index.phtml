@@ -31,16 +31,11 @@
                                 <td> <?php echo $fornecedor->getId(); ?> </td>
                                 <td> <?php echo $fornecedor->getNome(); ?> </td>
                                 <td class="acoes">
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Ação
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a title="Alterar" href="" class="dropdown-item">Alterar</a>
-                                            <form class="form-acao-excluir" action="" method="post">
-                                                <button class="dropdown-item" title="Excluir" type="submit">Excluir</button>
-                                            </form>
-                                        </div>
+                                    <div>
+                                      <a href="" id="botao-alterar" class="btn btn-primary">Alterar</a>
+                                    </div>
+                                    <div>
+                                      <a href="fornecedor/<?php echo $fornecedor->getId(); ?>/delete" id="botao-excluir" class="btn btn-danger">Excluir</a>
                                     </div>
                                 </td>
                                 <?php endforeach; ?>

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 use core\AbsController;
+use core\Redirector;
 use app\model\dao\UsuarioDAO;
 use app\model\bo\UsuarioBO;
 use app\model\dto\Usuario;
@@ -31,9 +32,9 @@ class UsuarioController extends AbsController{
 	public function delete($id){
 		$usuarioDAO = new UsuarioDAO();
 		$usuarioBO = new UsuarioBO($usuarioDAO);
-		$usuario = (new Usuario())->setId($request->post->id);
+		$usuario = (new Usuario())->setId($id);
 		$usuarioBO->delete($usuario);
-		$this->requestView('usuario/delete', 'baseHtml');
+		Redirector::toRoute('/usuario');
 	}
 	public function update($id, $request){
 		$usuarioDAO = new UsuarioDAO();

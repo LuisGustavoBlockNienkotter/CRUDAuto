@@ -130,7 +130,7 @@
                                       <a href="" id="botao-alterar" class="btn btn-primary">Alterar</a>
                                     </div>
                                     <div>
-                                      <a href="" id="botao-alterar" class="btn btn-danger">Excluir</a>
+                                      <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/delete" id="botao-excluir" class="btn btn-danger">Excluir</a>
                                     </div>
                                 </td>
                                 <?php endforeach; ?>

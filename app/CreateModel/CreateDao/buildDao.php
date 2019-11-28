@@ -221,7 +221,7 @@ class BuildDao
         $str = '';
         foreach ($object['parameters'] as $key => $value) {
             if (0 == $key) {
-                $str .= "\t"."\t"."\t"."\t".'$'.$value.' = $object->get'.ucfirst($value).'();'."\n";
+                $str .= "\t"."\t"."\t"."\t".'$'.$value.' = $objeto->get'.ucfirst($value).'();'."\n";
             }
         }
         return $str;

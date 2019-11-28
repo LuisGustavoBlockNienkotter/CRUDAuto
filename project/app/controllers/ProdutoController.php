@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 use core\AbsController;
+use core\Redirector;
 use app\model\dao\ProdutoDAO;
 use app\model\bo\ProdutoBO;
 use app\model\dto\Produto;
@@ -31,9 +32,9 @@ class ProdutoController extends AbsController{
 	public function delete($id){
 		$produtoDAO = new ProdutoDAO();
 		$produtoBO = new ProdutoBO($produtoDAO);
-		$produto = (new Produto())->setId($request->post->id);
+		$produto = (new Produto())->setId($id);
 		$produtoBO->delete($produto);
-		$this->requestView('produto/delete', 'baseHtml');
+		Redirector::toRoute('/produto');
 	}
 	public function update($id, $request){
 		$produtoDAO = new ProdutoDAO();

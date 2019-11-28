@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 use core\AbsController;
+use core\Redirector;
 use app\model\dao\RocketDAO;
 use app\model\bo\RocketBO;
 use app\model\dto\Rocket;
@@ -32,9 +33,9 @@ class RocketController extends AbsController{
 	public function delete($id){
 		$rocketDAO = new RocketDAO();
 		$rocketBO = new RocketBO($rocketDAO);
-		$rocket = (new Rocket())->setId($request->post->id);
+		$rocket = (new Rocket())->setId($id);
 		$rocketBO->delete($rocket);
-		$this->requestView('rocket/delete', 'baseHtml');
+		Redirector::toRoute('/rocket');
 	}
 	public function update($id, $request){
 		$rocketDAO = new RocketDAO();

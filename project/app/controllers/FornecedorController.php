@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 use core\AbsController;
+use core\Redirector;
 use app\model\dao\FornecedorDAO;
 use app\model\bo\FornecedorBO;
 use app\model\dto\Fornecedor;
@@ -30,9 +31,9 @@ class FornecedorController extends AbsController{
 	public function delete($id){
 		$fornecedorDAO = new FornecedorDAO();
 		$fornecedorBO = new FornecedorBO($fornecedorDAO);
-		$fornecedor = (new Fornecedor())->setId($request->post->id);
+		$fornecedor = (new Fornecedor())->setId($id);
 		$fornecedorBO->delete($fornecedor);
-		$this->requestView('fornecedor/delete', 'baseHtml');
+		Redirector::toRoute('/fornecedor');
 	}
 	public function update($id, $request){
 		$fornecedorDAO = new FornecedorDAO();

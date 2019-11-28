@@ -68,7 +68,7 @@ class RocketDAO extends Conexao implements IDAO{
 				$stmt = $this->getPdo()->prepare("DELETE FROM rocket WHERE id = :id");
 				$stmt->bindParam(":id", $id, PDO::PARAM_STR);
 
-				$id = $object->getId();
+				$id = $objeto->getId();
 
 				$stmt->execute();
 			}
