@@ -44,6 +44,7 @@
               <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
               <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+              <script src=\'https://kit.fontawesome.com/a076d05399.js\'></script>
               <link rel="stylesheet" href="../../libs/mysheets/style.css">
               <link rel="stylesheet" href="../../libs/fonts/material-icon.css">
               <link rel="stylesheet" href="../../libs/stylesheets/bootstrap.min.css">
@@ -141,8 +142,6 @@
         $html = '
                   <?php require_once __DIR__ . "'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .'header.phtml" ?>
 
-                    <div class="table-responsive">
-
                     
                     <div style="margin-top: 20px" align="right" class="container">
                     <div  class="row">
@@ -160,16 +159,41 @@
                               </tr>
                           </thead>
                           <tbody>
+                          
+                  <div class="table-responsive">
+
                               <?php foreach ($this->view->'.$object['name'].' as $'.$object['name'].'): ?>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirma exclusão?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        Tem certeza que deseja deletar?
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NÃO</button>
+                                        <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/delete"><button type="button" class="btn btn-danger">SIM</button></a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                                 <tr>
                                   ' . $tableContent . '
-                                  <td align="center" class="actions">
+                                  <td style="width: 100px" align="center" class="actions">
+                                  <div class="justify-content-center d-flex flex-row">
                                       <div style="margin-bottom: 5px;">
-                                        <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/findById" id="botao-alterar" class="btn btn-primary">Alterar</a>
+                                        <a class="mr-3" href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/findById" id="botao-alterar" class=""><i style="color: #c1c1c1" class=\'fas fa-pencil-alt\' style=\'font-size:28px\'></i></a>
                                       </div>
                                       <div>
-                                        <a href="'.$object['name'].'/<?php echo $'.$object['name'].'->get'.ucfirst($object['parameters'][0]).'(); ?>/delete" id="botao-excluir" class="btn btn-danger">Excluir</a>
+                                        <a data-toggle="modal" data-target="#exampleModal"  id="botao-excluir" class=""><i style="color: #c1c1c1" class=\'fas fa-trash\' style=\'font-size:28px\'></i></a>
                                       </div>
+                                  </div>
                                   </td>
                                 </tr>
                               <?php endforeach; ?>
@@ -215,7 +239,7 @@
         foreach ($object['parameters'] as $key => $parameter) {
           $html .= '  <div class="form-group">';
           $html .= '<label>'.ucfirst($parameter).'</label>
-                    <input type="text" name="'.$parameter.'" class="form-control">';
+                    <input type="text" name="'.$parameter.'" class="form-control" required>';
           $html .= '</div>';
         }
         $html .= '<button type="submit" class="btn btn-success">Salvar</button>'  ;         
@@ -253,7 +277,7 @@ $this->createHeadFromHtml().
         foreach ($object['parameters'] as $key => $parameter) {
           $html .= '  <div class="form-group">';
           $html .= '<label>'.ucfirst($parameter).'</label>
-        <input type="text" name="'.$parameter.'" class="form-control" value="<?php echo $this->view->'.$object['name'].'[0]->get'.ucfirst($parameter).'(); ?>">';
+        <input type="text" name="'.$parameter.'" class="form-control" value="<?php echo $this->view->'.$object['name'].'[0]->get'.ucfirst($parameter).'(); ?>" required>';
         $html .= '  </div>';  
       }
 
