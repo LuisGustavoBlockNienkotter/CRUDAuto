@@ -214,16 +214,11 @@
     {
       foreach ($this->json['objects'] as $key => $object) {
         $html = '
-                <html>'.
-                $this->createHeadFromHtml().
-                '<body>
                   <div class="container">
                     <div class="container-form">'.
                       $this->createFormForInsertPages($object).
                     '</div>
-                  </div>
-                  </body>
-                </html>';
+                  </div>';
               FileBuilder::buildPHPClassFileOrDir(
                 "../../project/app/view/".$object['name']."/insert", 
                 $html,
@@ -251,22 +246,16 @@
     {
       foreach ($this->json['objects'] as $key => $object) {
         $html = '
-<html>'.
-$this->createHeadFromHtml().
-'<body>
   <div class="container">
     <div class="container-form">'.
       $this->createFormForUpdatePages($object).
     '</div>
-  </div>
-  </body>
-</html>';
-                ;      
-              FileBuilder::buildPHPClassFileOrDir(
-                "../../project/app/view/".$object['name']."/update", 
-                $html,
-                ".phtml"
-              );
+  </div>';
+  FileBuilder::buildPHPClassFileOrDir(
+    "../../project/app/view/".$object['name']."/update", 
+    $html,
+    ".phtml"
+  );
       }
     }
     
