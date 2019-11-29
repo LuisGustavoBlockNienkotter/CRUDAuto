@@ -30,7 +30,7 @@ class ProdutoController extends AbsController{
 		->setNcm($request->post->ncm)
 		->setEstoque($request->post->estoque);
 		$produtoBO->insert($produto);
-		$this->requestView('produto/insert', 'baseHtml');
+		Redirector::toRoute('/produto');
 	}
 	public function delete($id){
 		$produtoDAO = new ProdutoDAO();
@@ -49,7 +49,7 @@ class ProdutoController extends AbsController{
 		->setNcm($request->post->ncm)
 		->setEstoque($request->post->estoque);
 		$produtoBO->update($obj);
-		$this->requestView('produto/update', 'baseHtml');
+		Redirector::toRoute('/produto');
 	}
 	public function findById($id){
 		$produtoDAO = new ProdutoDAO();

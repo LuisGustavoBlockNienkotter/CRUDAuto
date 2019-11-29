@@ -18,3 +18,11 @@ create table produto (
   primary key(id)
 );
 
+create table fornecedor (
+  id int not null auto_increment,
+  nome varchar(50),
+  cpf varchar(50),
+  primary key(id)
+);
+
+

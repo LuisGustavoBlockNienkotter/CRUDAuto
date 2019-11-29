@@ -30,7 +30,7 @@ class UsuarioController extends AbsController{
 		->setLogin($request->post->login)
 		->setSenha($request->post->senha);
 		$usuarioBO->insert($usuario);
-		$this->requestView('usuario/insert', 'baseHtml');
+		Redirector::toRoute('/usuario');
 	}
 	public function delete($id){
 		$usuarioDAO = new UsuarioDAO();
@@ -49,7 +49,7 @@ class UsuarioController extends AbsController{
 		->setLogin($request->post->login)
 		->setSenha($request->post->senha);
 		$usuarioBO->update($obj);
-		$this->requestView('usuario/update', 'baseHtml');
+		Redirector::toRoute('/usuario');
 	}
 	public function findById($id){
 		$usuarioDAO = new UsuarioDAO();

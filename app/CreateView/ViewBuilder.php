@@ -41,6 +41,9 @@
               <meta charset="utf-8">
               <script src="../../libs/js/jquery.min.js"></script>
               <script src="../../libs/js/bootstrap.min.js"></script>
+              <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+              <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
               <link rel="stylesheet" href="../../libs/mysheets/style.css">
               <link rel="stylesheet" href="../../libs/fonts/material-icon.css">
               <link rel="stylesheet" href="../../libs/stylesheets/bootstrap.min.css">
@@ -63,20 +66,36 @@
     }
 
     public function createHeaderPage(){
-      $html = '<header class="objects-header">
-                    <div class="row">
-                        <div class="col-md-2 linha-header text-center">
-                            <span class="titulo-painel-adminitrativo"><a href="/">Painel Administrativo</a></span>
-                        </div>
-                        <div class="col-md-4">
-                        <nav class="navbar">';
+
+      $html = '<nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Auto CRUD</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(Página atual)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Listagem
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">';
+
+      
       foreach ($this->json['objects'] as $key => $object) {
-          $html .= '<a href="/'.$object['name'].'" class="btn btn-primary">'.$object['name'].'</a>';
+        $html .= '<a class="nav-link" href="/' . $object['name'] . '">'. ucfirst($object['name']) . '<span class="sr-only">(Página atual)</span></a>';
       }
-      $html .= '</nav>
-              </div>
-          </div>
-        </header>';
+
+
+      $html .= '        
+      </div>
+      </li>
+        </ul>
+      </div>
+    </nav>';
+      
       FileBuilder::buildPHPClassFileOrDir(
         "../../project/app/view/header", 
         $html,
@@ -191,14 +210,15 @@
 
     public function createFormForInsertPages($object)
     {
-        $html = '<form method="POST" action="/'.$object['name'].'/insert">';
+        $html = '<form style="display: flex; flex-direction: column; width: 30%; margin: 0 auto;" method="POST" action="/'.$object['name'].'/insert">';
+        $html .= "<h3> Cadastro de " . ucfirst($object['name']). " </h3>";
         foreach ($object['parameters'] as $key => $parameter) {
           $html .= '  <div class="form-group">';
           $html .= '<label>'.ucfirst($parameter).'</label>
                     <input type="text" name="'.$parameter.'" class="form-control">';
           $html .= '</div>';
         }
-        $html .= '<button type="submit" class="btn btn-primary">Salvar</button>'  ;         
+        $html .= '<button type="submit" class="btn btn-success">Salvar</button>'  ;         
         $html .= '</form>';
         return $html;
     }
@@ -225,18 +245,20 @@ $this->createHeadFromHtml().
               );
       }
     }
-
+    
     public function createFormForUpdatePages($object)
     {
-        $html = '<form method="POST" action="/'.$object['name'].'/<?php echo $this->view->'.$object['name'].'[0]->get'.ucfirst($object['parameters'][0]).'(); ?>/update">';
+        $html = '<form style="display: flex; flex-direction: column; width: 30%; margin: 0 auto;" method="POST" action="/'.$object['name'].'/<?php echo $this->view->'.$object['name'].'[0]->get'.ucfirst($object['parameters'][0]).'(); ?>/update">';
+        $html .= "<h3> Edição de " . ucfirst($object['name']). " </h3>";
         foreach ($object['parameters'] as $key => $parameter) {
           $html .= '  <div class="form-group">';
-          $html .= '
-  <label>'.ucfirst($parameter).'</label>
-  <input type="text" name="'.$parameter.'" class="form-control" value="<?php echo $this->view->'.$object['name'].'[0]->get'.ucfirst($parameter).'(); ?>">';
-        }
-        $html .= '  </div>';
-        $html .= '<button type="submit" class="btn btn-primary">Salvar</button>'  ;      
+          $html .= '<label>'.ucfirst($parameter).'</label>
+        <input type="text" name="'.$parameter.'" class="form-control" value="<?php echo $this->view->'.$object['name'].'[0]->get'.ucfirst($parameter).'(); ?>">';
+        $html .= '  </div>';  
+      }
+
+        $html .= '<button type="submit" class="btn btn-success">Salvar</button>'  ;    
+          
         $html .= '
 </form>';
         return $html;
@@ -252,6 +274,9 @@ $this->createHeadFromHtml().
                 <link rel="stylesheet" href="../../libs/fonts/material-icon.css">
                 <link rel="stylesheet" href="../../libs/stylesheets/bootstrap.min.css">
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
                 <link rel="stylesheet" href="../custom.css">
               </head>';
       return $html;

@@ -192,11 +192,9 @@
       $body->append(Helpers::strToLoweredCase($class["name"]));
       $body->append(");");
       $body->append("\n");
-      $body->append('$this->requestView(\'');
+      $body->append('Redirector::toRoute(\'/');
       $body->append(Helpers::strToLoweredCase($class["name"]));
-      $body->append("/");
-      $body->append("insert', ");
-      $body->append("'baseHtml');");
+      $body->append("');");
       return $body;
     }
 
@@ -300,11 +298,9 @@
       $body->append("obj");
       $body->append(");");
       $body->append("\n");
-      $body->append('$this->requestView(\'');
+      $body->append('Redirector::toRoute(\'/');
       $body->append(Helpers::strToLoweredCase($class["name"]));
-      $body->append("/");
-      $body->append("update', ");
-      $body->append("'baseHtml');");
+      $body->append("');");
 
       return $body;
     }

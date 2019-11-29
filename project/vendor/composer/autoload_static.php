@@ -30,14 +30,18 @@ class ComposerStaticInit08a6c0343a082cb54d05fa78cc3a947c
 
     public static $classMap = array (
         'app\\conexao\\Conexao' => __DIR__ . '/../..' . '/app/conexao/Conexao.php',
+        'app\\controllers\\FornecedorController' => __DIR__ . '/../..' . '/app/controllers/FornecedorController.php',
         'app\\controllers\\HomeController' => __DIR__ . '/../..' . '/app/controllers/HomeController.php',
         'app\\controllers\\ProdutoController' => __DIR__ . '/../..' . '/app/controllers/ProdutoController.php',
         'app\\controllers\\UsuarioController' => __DIR__ . '/../..' . '/app/controllers/UsuarioController.php',
         'app\\interfaces\\IDAO' => __DIR__ . '/../..' . '/app/interfaces/IDAO.php',
+        'app\\model\\bo\\FornecedorBO' => __DIR__ . '/../..' . '/app/model/bo/FornecedorBO.php',
         'app\\model\\bo\\ProdutoBO' => __DIR__ . '/../..' . '/app/model/bo/ProdutoBO.php',
         'app\\model\\bo\\UsuarioBO' => __DIR__ . '/../..' . '/app/model/bo/UsuarioBO.php',
+        'app\\model\\dao\\FornecedorDAO' => __DIR__ . '/../..' . '/app/model/dao/FornecedorDAO.php',
         'app\\model\\dao\\ProdutoDAO' => __DIR__ . '/../..' . '/app/model/dao/ProdutoDAO.php',
         'app\\model\\dao\\UsuarioDAO' => __DIR__ . '/../..' . '/app/model/dao/UsuarioDAO.php',
+        'app\\model\\dto\\Fornecedor' => __DIR__ . '/../..' . '/app/model/dto/fornecedor.php',
         'app\\model\\dto\\Produto' => __DIR__ . '/../..' . '/app/model/dto/produto.php',
         'app\\model\\dto\\Usuario' => __DIR__ . '/../..' . '/app/model/dto/usuario.php',
         'core\\AbsController' => __DIR__ . '/../..' . '/core/AbsController.php',
